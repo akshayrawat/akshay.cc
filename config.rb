@@ -11,6 +11,10 @@ compass_config do |config|
   config.output_style = :compact
 end
 
+
+set :markdown_engine, :redcarpet
+set :markdown, tables: true, autolink: true, gh_blockcode: true
+
 ###
 # Page options, layouts, aliases and proxies
 ###
@@ -49,11 +53,15 @@ set :css_dir, 'css'
 set :js_dir, 'js'
 set :images_dir, 'img'
 
+page '/*', layout: '/layouts/layout'
+
 activate :blog do |blog|
   blog.prefix = "blog"
-  blog.layout = 'blog'
+  blog.layout = 'layouts/blog'
   blog.permalink = ":year-:month-:day-:title.html"
 end
+
+ignore 'layouts/*'
 
 
 # Build-specific configuration
