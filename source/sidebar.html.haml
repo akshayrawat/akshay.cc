@@ -1,0 +1,27 @@
+%h1#logo
+  = link_to "/" do
+    = image_tag "logo.png"
+
+%nav#main-nav
+  %ul
+    %li{ class: nav_class_for('blogs') }
+      = link_to "Blog", "/"
+    %li{ class: nav_class_for('projects') }
+      = link_to "Projects", "/projects.html"
+    %li{ class: nav_class_for('experiments') }
+      = link_to "Experiments", "/experiments.html"
+
+#social
+  %ul
+    %li
+      = link_to "http://www.twitter.com/akshayrawat" do
+        %i.icon-twitter
+    %li
+      = link_to "http://www.github.com/akshayrawat" do
+        %i.icon-github
+    %li
+      = link_to "http://in.linkedin.com/pub/akshay-rawat/11/93/807" do
+        %i.icon-linkedin
+    %li
+      = link_to "mailto:projects@akshay.cc?subject=Hi%20There!" do
+        %i.icon-envelope-alt

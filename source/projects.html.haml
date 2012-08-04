@@ -1,0 +1,18 @@
+- @page = "projects"
+
+%h4
+  Selected examples
+
+%ul#projects
+  - data.projects.projects.each do |project|
+    %li.page-title
+      %h2
+        .pull-left
+          = project['name']
+        .pull-right
+          = project['date']
+      .image
+        = link_to project['url'], target: '_blank' do
+          %img{ alt: project['name'], src: project['image_url']}/
+      .description
+        = link_to project['description'], project['url'], target: '_blank'

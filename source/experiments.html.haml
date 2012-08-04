@@ -1,0 +1,15 @@
+- @page = "experiments"
+
+%h4
+  Ever tinkering
+
+%ul#experiments
+  - data.experiments.experiments.each do |experiment|
+    %li.page-title
+      %h2
+        = experiment['name']
+      .image
+        = link_to experiment['url'], target: '_blank' do
+          %img{ alt: experiment['name'], src: experiment['image_url']}/
+      .description
+        = link_to experiment['description'], experiment['url'], target: '_blank'

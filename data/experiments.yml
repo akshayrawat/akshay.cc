@@ -1,0 +1,14 @@
+experiments:
+   -
+    name: "EveryTalk"
+    url: "http://www.everytalk.tv"
+    image_url: "/img/experiments/everytalk.jpeg"
+    description:
+      <a href='http://www.everytalk.tv' target='_blank'>EveryTalk.tv</a> wants to bring Railscasts style learning to conference talks. It aggregate videos from conferences, help you find a talk based on a topic or speaker and then build a playlist which you can watch over a period of time.
+
+   -
+    name: "MyMinister"
+    url: "http://myminister.info"
+    image_url: "/img/experiments/myminister.jpeg"
+    description:
+      <a href='http://myminister.info' target='_blank'>MyMinister</a> is an open database of information on Indian Members of Parliaments. Accessible via a REST API.

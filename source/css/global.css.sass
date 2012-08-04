@@ -1,0 +1,29 @@
+#top-bg
+  background: $light_green url('/img/topbg.png') repeat-x
+  height: 5px
+
+#main
+  margin-top: 60px
+
+.page-title h2
+  font-size: 11px
+  text-transform: uppercase
+  border-bottom: 1px solid #CCC
+  letter-spacing: 3px
+  margin-bottom: 30px
+  overflow: hidden
+
+#sidebar #main-nav li.active a
+  color: $light_green
+
+footer
+  margin-top: 60px
+  color: white
+  text-transform: uppercase
+  letter-spacing: 3px
+  font-size: 10px
+  text-align: center
+  color: #8D8C8C
+
+@include sticky-footer(30px, "#page", "#page-footer", "footer")
+

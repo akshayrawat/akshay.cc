@@ -1,0 +1,73 @@
+projects:
+   -
+    name: "GigFunder.com"
+    url: "http://gigfunder.com/tours"
+    image_url: "/img/projects/gigfunder.jpeg"
+    date: "May 2012"
+    description:
+      <a href='http://beta.gigfunder.com' target='_blank'>GigFunder.com</a> lets artists crowd-fund their tours. It features a Kickstarter style all-or-nothing funding model with pledge awards. It uses several APIs to intelligently compute tour costs to a city. I was a one man development team on this from idea to launch, in collaboration with <a href="http://www.digitalcedar.com/" target="_blank">Digital Cedar</a>.
+
+   -
+    name: "YourView.org.au"
+    url: "http://yourview.org.au"
+    image_url: "/img/projects/yourview.jpeg"
+    date: "February 2012"
+    description:
+      <a href='http://yourview.org.au' target='_blank'>YourView</a> is an Australian critic site on issues effecting the general public. It lets people easily find out the key arguments bearing on most public issues, help decide which arguments are most significant and take a stand by voting and commenting. It uses a users and issues rating system to give weight to comments and votes.I was a one man development team on this from idea to launch, in collaboration with <a href="http://trikeapps.com/" target="_blank">TrikeApps</a>.
+
+   -
+    name: "Hipstery.com"
+    url: "http://www.hipstery.com"
+    image_url: "/img/projects/hipstery.jpeg"
+    date: "October 2011"
+    description:
+      <a href='http://www.hipstery.com' target='_blank'>Hipstery.com</a> sells t-shirts based on 'mysterious' secret algorithms. Packers at Hipstery wanted to streamline their order processing workflow by building an intelligent inventory management system which would suggest t-shirts based on certain factors. I was responsible for the design and development of it.
+
+   -
+    name: "LawGives.org"
+    url: "https://beta.lawgives.com/"
+    image_url: "/img/projects/lawgives.jpeg"
+    date: "August 2011"
+    description:
+      <a href='https://beta.lawgives.com/' target='_blank'>LawGives.org</a> is a platform to aid individuals and organizations in need of legal help find easy access to free and low-cost advice and understanding. I was responsible for building the Stackoverflow like Q&amp;A features in it.
+
+   -
+    name: "Floh.in"
+    url: "http://connect.floh.in"
+    image_url: "/img/projects/floh.jpeg"
+    date: "May 2011"
+    description:
+      <a href='http://www.floh.in' target='_blank'>Floh.in</a> is an invitation only network of single people who enjoy an active lifestyle. Floh conducts high quality events which provides a no pressure platform for single to network, and learn something at the same time. <a href='http://connect.floh.in' target='_blank'>Floh Facebook App</a> is based on the Facebook Platform. I am responsible for the design and development.
+
+
+   -
+    name: "Philanthroper.com"
+    url: "http://philanthroper.com"
+    image_url: "/img/projects/philanthroper.jpeg"
+    date: "January 2011"
+    description:
+      <a href='http://philanthroper.com' target='_blank'>Philanthroper.com</a> is a daily deal site for philanthropies. We wanted to make the process of donating as streamlined as possible. I was responsible for the initial development of the application in colloboration with design firm <a href='http://unitonenine.com' target='_blank'>UnitOneNine</a>.
+
+   -
+    name: "Boom CRM"
+    url: "http://boxdice.com.au/boom"
+    image_url: "/img/projects/boom.jpeg"
+    date: "November 2010"
+    description:
+      <a href='http://boxdice.com.au/boom' target='_blank'>Boom CRM</a> offers a comprehensive real estate solution that handles all aspects of a real estate sales business - appraisals and listings management, advertising, trust accounting. I was involved in the core backend development of the product.
+
+   -
+    name: "Grab Websites"
+    url: "http://boxdice.com.au/grab"
+    image_url: "/img/projects/grab.jpeg"
+    date: "November 2010"
+    description:
+      <a href='http://boxdice.com.au/grab' target='_blank'>Grab Websites</a> lets Boom CRM clients setup real-estate websites based on their Boom CRM installation. Grab provides a template engine to setup company branded websites really quickly. Current installations include <a href='http://www.kbrealestate.com.au/' target='_blank'> KB Real Estate</a>, <a href='http://coventryco.com.au/' target='_blank'> Coventry &amp; Co</a>. I am involved in the development of this from groundup in colloboration with designer <a href='http://www.callumflack.com/' target='_blank'>Callum Flack</a>.
+
+   -
+    name: "YourHires"
+    url: "https://github.com/akshayrawat/yourhires-ng/wiki"
+    image_url: "/img/projects/yourhires.jpeg"
+    date: "May 2010"
+    description:
+      <a href='https://github.com/akshayrawat/yourhires-ng/wiki' target='_blank'>YourHires</a> enables small organizations to manage their recruitment processes. Our goal was to build a simple, elegant solution which would be flexible enough for most recruitment workflow styles. YourHires is Open Source. I was responsible for design and development from the ground up.
