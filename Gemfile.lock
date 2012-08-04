@@ -36,6 +36,9 @@ GEM
       middleman-core (= 3.0.0)
       middleman-more (= 3.0.0)
       middleman-sprockets (= 3.0.0)
+    middleman-blog (3.0.0)
+      maruku (~> 0.6.0)
+      middleman-core (~> 3.0.0)
     middleman-core (3.0.0)
       activesupport (~> 3.2.6)
       bundler (~> 1.1)
@@ -114,6 +117,7 @@ DEPENDENCIES
   compass
   haml
   middleman (~> 3.0.0)
+  middleman-blog
   sass
   thin
   uglifier
