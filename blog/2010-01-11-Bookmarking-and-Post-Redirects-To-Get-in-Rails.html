@@ -1,0 +1,115 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]> ><! <![endif]-->
+<html class='no-js' lang='en'>
+  <!-- <![endif] -->
+  <head>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='Home of Akshay Rawat' name='description' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <title>Akshay Rawat</title>
+    <link href='humans.txt' rel='author' />
+    <link href="/css/application.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+  <body class='blog'>
+    <!--[if lt IE 7]> <p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p> <![endif]-->
+    <div id='top-bg'></div>
+    <div class='container-fluid' id='page'>
+      <div class='row-fluid'>
+        <aside class='span3' id='sidebar'>
+          <h1 id='logo'>
+              <a href="/"><img src="/img/logo.png" /></a>
+          
+          </h1>
+          <nav id='main-nav'>
+            <ul>
+              <li class='inactive'>
+                <a href="/">Blog</a>
+              </li>
+              <li class='inactive'>
+                <a href="/projects.html">Projects</a>
+              </li>
+              <li class='inactive'>
+                <a href="/experiments.html">Experiments</a>
+              </li>
+            </ul>
+          </nav>
+          <div id='social'>
+            <ul>
+              <li>
+                      <a href="http://www.twitter.com/akshayrawat"><i class='icon-twitter'></i>
+                </a>
+          
+              </li>
+              <li>
+                      <a href="http://www.github.com/akshayrawat"><i class='icon-github'></i>
+                </a>
+          
+              </li>
+              <li>
+                      <a href="http://in.linkedin.com/pub/akshay-rawat/11/93/807"><i class='icon-linkedin'></i>
+                </a>
+          
+              </li>
+              <li>
+                      <a href="mailto:projects@akshay.cc?subject=Hi%20There!"><i class='icon-envelope'></i>
+                </a>
+          
+              </li>
+            </ul>
+          </div>
+        </aside>
+        <section class='span9' id='main'>
+          <div class='page-title'>
+  <h2>
+    <div class='pull-left'>
+      Bookmarking and Post-RedirectTo-Get in Rails
+    </div>
+    <div class='pull-right'>
+      Jan 11 2010
+    </div>
+  </h2>
+</div>
+<div class='blog-body'>
+  <p>UI Prototyping has become a mainstream practice in a lot of companies doing custom development work. Almost every company has their own style. Sometimes, that style may provide a direct competitive advantage. Prototypes also differ based on their purpose. Some use it for driving all kinds of analysis during design, some for building proof of concepts for gaining shareholder/VC acceptance and some even for ensuring that the development doesn’t go wrong, specially when the work is not co-located. Here are some things we learnt on a recent custom development job.</p>
+
+<p>Skip building high-fidelity prototypes with tools like Photoshop, Fireworks etc. These kinds of prototypes take longer to build, incorporate unnecessary details and cannot be reused during the development. The tools provide unnecessary pixel drawing power and flexibility which only serve as a distraction to the team.</p>
+
+<p>Skip building low-fidelity prototypes with paper, or tools like Balsamiq, OmniGraffle. These might be good for white-boarding or brainstorming sessions, but definitely cannot keep up when more detailed analysis, usability testing or actual behavior is required. It is hard to get creative when all you have are lines to draw wireframes. Again, these cannot be reused during the development.</p>
+
+<p>For prototyping, use a whiteboard for high level features. For anything more, use lightweight HTML/CSS frameworks like HAML, SASS, Blueprint which make composing HTML pages much faster and simpler. Its fast and straightforward to get into the ‘tweak &amp; refresh’ cycle. Since more developers are familiar with HTML, than with tools like Photoshop, it makes collaboration much easier. Also, parts of the code can be used to guide development and as big visible charts.</p>
+
+<p>Since the prototype is all plain code, version controlling your prototypes with Git or Mercurial is a must - this makes branching and merging easier.  Unknown elements can be ‘spiked’ in their own branch, to be merged or discarded later, based on feedback. This also makes cross pollination of features across multiple prototypes(branches) much easier.</p>
+
+<p>Build multiple versions, in time-boxed runs. This is a common mistake made by many teams. If you are starting on a fresh application, make sure to try at least 2 to 3 prototypes with different ideas, in fixed periods of time. Once you have settled for one, you have laid down the foundations for features like top level navigation, page structures, data presentation, page work flows, basic color &amp; typography schemes etc.</p>
+
+<p>Avoid Big Upfront Prototyping. In our case prototypes were just enough to tell us about the work 2-3 weeks in advance. Our development iteration cycle was a couple of weeks behind the prototype.</p>
+
+<p>Prototypes are a good starting point for Domain Driven Design sessions. We used it to build a common vocabulary/language across the team - developers, analysts and the users. These were words &amp; concepts around - ‘kinds of users’ (e.g. Content Creators, Admins, Designers, End Users), domain terms(e.g. Staging Period, End Of Life), names given to pages, views of data on pages (business card view of a person), etc.</p>
+
+<p>Use design metaphors from other popular sites or design books (my favorite being Designing Interfaces) to explain complex concepts or UI patterns like Digg style voting system or Facebook like feeds. Also the YUI pattern library provided a lot of language around UI elements.</p>
+
+<p>Don’t prototype what you know. Good examples are login pages, validates failures, filters, searches, cancel buttons. Stub out as many links as you can or any other behavior which is well understood. Don’t Repeat Yourself - talk and explain a concept instead of prototyping if it is close to something already prototyped.</p>
+
+<p>It is ok for the prototype to be out of sync. A prototype type needs to be forward compatible not backward. We tried to follow this as much as possible.</p>
+
+<p>Build a Screen Cast with audio once your are done, explaining the concepts and the workings of the prototype. This will be enough for 80% of the audience.</p>
+
+<p>Use your judgement to kill the prototype.  There is an obvious cost to prototyping, make sure the prototype is giving you enough bang for the buck, at all times.</p>
+
+<p>Finally, use prototypes as guidelines, not as rules during implementation. A lot of dynamics are exposed during actual implementation, use this as feedback in the prototype. We specially saw this come true during development. We realized that our implementation differed from our prototypes by nearly 30% - 40% in the end.</p>
+</div>
+        </section>
+      </div>
+      <div id='page-footer'></div>
+    </div>
+    <footer>
+      Made with Middleman &bull; Hosted on Github
+    </footer>
+  </body>
+</html>
+

@@ -1,0 +1,116 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]> ><! <![endif]-->
+<html class='no-js' lang='en'>
+  <!-- <![endif] -->
+  <head>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='Home of Akshay Rawat' name='description' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <title>Akshay Rawat</title>
+    <link href='humans.txt' rel='author' />
+    <link href="/css/application.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+  <body class='blog'>
+    <!--[if lt IE 7]> <p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p> <![endif]-->
+    <div id='top-bg'></div>
+    <div class='container-fluid' id='page'>
+      <div class='row-fluid'>
+        <aside class='span3' id='sidebar'>
+          <h1 id='logo'>
+              <a href="/"><img src="/img/logo.png" /></a>
+          
+          </h1>
+          <nav id='main-nav'>
+            <ul>
+              <li class='inactive'>
+                <a href="/">Blog</a>
+              </li>
+              <li class='inactive'>
+                <a href="/projects.html">Projects</a>
+              </li>
+              <li class='inactive'>
+                <a href="/experiments.html">Experiments</a>
+              </li>
+            </ul>
+          </nav>
+          <div id='social'>
+            <ul>
+              <li>
+                      <a href="http://www.twitter.com/akshayrawat"><i class='icon-twitter'></i>
+                </a>
+          
+              </li>
+              <li>
+                      <a href="http://www.github.com/akshayrawat"><i class='icon-github'></i>
+                </a>
+          
+              </li>
+              <li>
+                      <a href="http://in.linkedin.com/pub/akshay-rawat/11/93/807"><i class='icon-linkedin'></i>
+                </a>
+          
+              </li>
+              <li>
+                      <a href="mailto:projects@akshay.cc?subject=Hi%20There!"><i class='icon-envelope'></i>
+                </a>
+          
+              </li>
+            </ul>
+          </div>
+        </aside>
+        <section class='span9' id='main'>
+          <div class='page-title'>
+  <h2>
+    <div class='pull-left'>
+      My RVM Setup and Usage
+    </div>
+    <div class='pull-right'>
+      Jul 16 2010
+    </div>
+  </h2>
+</div>
+<div class='blog-body'>
+  <p>RVM has proved mighty useful in the short time I&#39;ve used it. My projects usually don&#39;t care too much about multiple versions of Ruby, they all primarily use ree-1.8.7, but I have a ton of bed time hacks which use all kinds of Rubies. Here is how I&#39;ve found RVM useful.</p>
+
+<p>RVM definitely helps out here by separating gem installations across multiple versions of Ruby. RVM Gemsets turned out to be the most useful feature though, specially while upgrading application through major versions of Rails. The CI Box also uses RVM for running builds for projects with different dependencies. Here, RVM also helps to isolate the gems dependencies of the CI app (like cruisecontrol.rb) from the application it is building by using project .rvmrc.
+In fact RVM and Bundler work quite well together. In the absence of RVM, Bundler would install gems in the ~/bundle folder. With RVM, bundler installs all gems in ~/.rvm/gems/ree-1.8.7-2010.02/gems - which is a RVM managed folder structure, which is ruby version/ RVM gemset aware.
+When using RVM, here are some guidelines I like follow to.</p>
+
+<p>No global system gems</p>
+
+<p>The RVM manual discourages the use of gem installations via sudo. In fact, like most people if you are coming to RVM with a preinstalled set of system gems, you can remove them by 
+rvm use system
+rvm gemset empty
+This ensures that the system has no global gems and the gems managed RVM are the only dependencies. This is specially helpful in removing those old gems which had binaries in global binary paths like &#39;/usr/bin&#39;</p>
+
+<p>Each project has its own project .rvmrc which is checked in.</p>
+
+<p>This is convenient as RVM will automatically switch gemsets based on this. On new projects, right before you run bundle install, run this from the project root 
+rvm --create --rvmrc ruby@project_name
+This creates a gemset and a .rvmrc for the project</p>
+
+<p>Avoid installing gems in the ruby@global gemset</p>
+
+<p>These is the global gemset where gems are installed for a ruby when no particular gemset is specified. The problem with this is in how RVM initializes the PATH and GEM<em>PATH while loading a gemset
+PATH=&quot;~/.rvm/gems/ree-1.8.7-2010.02@project/bin:~/.rvm/gems/ree-1.8.7-2010.02@global/bin:~/.rvm/rubies/ree-1.8.7-2010.02/bin:~/.rvm/bin:$PATH&quot;
+GEM</em>HOME=&quot;~/.rvm/gems/ree-1.8.7-2010.02@project&quot;
+GEM_PATH=&quot;~/.rvm/gems/ree-1.8.7-2010.02@project:~/.rvm/gems/ree-1.8.7-2010.02@global&quot;</p>
+
+<p>This means that RVM will also look for gem binaries in the global gemset. Now this would be a problem if developer environments have different global gemsets. This is nasty, since the whole point of create a new gemset was to isolate the project from such differences. So its best to keep the @global gemset as minimal as possible. Now, sharing of gems across projects or space is not really an issue here since RVM internally keeps only one copy of a gem even if its used in multiple gemsets. I have a @spikes gemset and I set my user .rvmrc to rvm use ruby@spikes so that it is the default gemset.
+Hope this helps !</p>
+</div>
+        </section>
+      </div>
+      <div id='page-footer'></div>
+    </div>
+    <footer>
+      Made with Middleman &bull; Hosted on Github
+    </footer>
+  </body>
+</html>
+
