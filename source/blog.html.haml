@@ -1,0 +1,11 @@
+- wrap_layout :layout do
+  - @page = "blog"
+
+  .page-title
+    %h2
+      .pull-left
+        = current_article.title
+      .pull-right
+        = current_article.date.strftime('%b %d %Y')
+  .blog-body
+    = current_article.body

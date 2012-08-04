@@ -24,9 +24,7 @@ end
 # page "/path/to/file.html", :layout => :otherlayout
 # 
 # A path which all have the same layout
-# with_layout :admin do
-#   page "/admin/*"
-# end
+
 
 # Proxy (fake) files
 # page "/this-page-has-no-template.html", :proxy => "/template-file.html" do
@@ -48,14 +46,16 @@ helpers do
 end
 
 set :css_dir, 'css'
-
 set :js_dir, 'js'
-
 set :images_dir, 'img'
 
 activate :blog do |blog|
   blog.prefix = "blog"
+  blog.layout = 'blog'
+  blog.permalink = ":year-:month-:day-:title.html"
 end
+
+
 # Build-specific configuration
 configure :build do
   activate :minify_css
