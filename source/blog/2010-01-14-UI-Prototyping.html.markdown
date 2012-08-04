@@ -1,7 +1,6 @@
 ---
 title: UI Prototyping
 date: 2010-01-14 20:41 +05:30
-tags:
 ---
 Post Redirects to Get is a common pattern seen in most web applications. If a POST changes the server state, eg. by storing a value in the database then it should redirect to a GET so that when a user refreshes the page, the browser doesn't POST the data again. All good until now, but what happens when a POST does not change the server state and this is interesting when it comes to bookmarking such pages.
 

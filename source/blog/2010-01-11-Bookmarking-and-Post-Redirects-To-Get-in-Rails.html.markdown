@@ -1,7 +1,6 @@
 ---
 title: Bookmarking and Post-RedirectTo-Get in Rails
 date: 2010-01-11 20:41 +05:30
-tags:
 ---
 UI Prototyping has become a mainstream practice in a lot of companies doing custom development work. Almost every company has their own style. Sometimes, that style may provide a direct competitive advantage. Prototypes also differ based on their purpose. Some use it for driving all kinds of analysis during design, some for building proof of concepts for gaining shareholder/VC acceptance and some even for ensuring that the development doesn’t go wrong, specially when the work is not co-located. Here are some things we learnt on a recent custom development job.
 
