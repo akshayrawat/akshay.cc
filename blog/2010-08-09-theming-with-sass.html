@@ -1,0 +1,171 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]> ><! <![endif]-->
+<html class='no-js' lang='en'>
+  <!-- <![endif] -->
+  <head>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='Home of Akshay Rawat' name='description' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <title>Akshay Rawat</title>
+    <link href='humans.txt' rel='author' />
+    <link href="/css/application.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+  <body class='blog'>
+    <!--[if lt IE 7]> <p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p> <![endif]-->
+    <div id='top-bg'></div>
+    <div class='container-fluid' id='page'>
+      <div class='row-fluid'>
+        <aside class='span3' id='sidebar'>
+          <h1 id='logo'>
+              <a href="/"><img src="/img/logo.png" /></a>
+          
+          </h1>
+          <nav id='main-nav'>
+            <ul>
+              <li class='inactive'>
+                <a href="/">Blog</a>
+              </li>
+              <li class='inactive'>
+                <a href="/projects">Projects</a>
+              </li>
+              <li class='inactive'>
+                <a href="/experiments">Experiments</a>
+              </li>
+            </ul>
+          </nav>
+          <div id='social'>
+            <ul>
+              <li>
+                      <a href="http://www.twitter.com/akshayrawat"><i class='icon-twitter'></i>
+                </a>
+          
+              </li>
+              <li>
+                      <a href="http://www.github.com/akshayrawat"><i class='icon-github'></i>
+                </a>
+          
+              </li>
+              <li>
+                      <a href="http://in.linkedin.com/pub/akshay-rawat/11/93/807"><i class='icon-linkedin'></i>
+                </a>
+          
+              </li>
+              <li>
+                      <a href="mailto:projects@akshay.cc?subject=Hi%20There!"><i class='icon-envelope'></i>
+                </a>
+          
+              </li>
+            </ul>
+          </div>
+        </aside>
+        <section class='span9' id='main'>
+          <div class='page-title'>
+  <h2>
+    <div class='pull-left'>
+      Theming with SASS
+    </div>
+    <div class='pull-right'>
+      Aug 09 2010
+    </div>
+  </h2>
+</div>
+<div class='blog-body'>
+  <p>Does your application need to support multiple themes? SASS enables a neat technique to implement multiple themes in the same application. Here are some guidelines on how to go about it.</p>
+
+<p>Lets say we have an application which needs to support multiple clients each with its own custom branding eg. logo, colors, images, typography etc. Hence, each client comes with its own set of theming requirements. Here are some guidelines on how to go about it.</p>
+
+<p>Decide on what will determine which theme to display. 
+If the same deployment serves multiple clients each on their own domains/subdomains, then a decision to select the right client can be made by looking at the http headers. If each client is deployed independently then perhaps a configuration can decide which client to use.</p>
+
+<p>Structuring SASS files.
+Once the client is determined, we know now which theme to use. First its important to structure your stylings correctly. I usually recommend to extract colors, typography, image urls into sass variables in their own SASS partials. Usually, you&#39;ll know what will change across clients and most of them could be good candidates for extraction into their own SASS partials.</p>
+
+<p>Now start with a baseline theme. All the client themes provide specific overrides to this. When using Rails, here is how to structure the SASS folders
+public/stylesheets/sass/baseline.sass
+public/stylesheets/sass/<em>colors.sass
+public/stylesheets/sass/</em>typography.sass
+public/stylesheets/sass/<em>images.sass
+public/stylesheets/sass/</em>page_layouts.sass</p>
+
+<p>The baseline.sass imports the baseline partials. It also defines/imports all generic stylings like page layouts etc.
+baseline.sass
+@import colors
+@import typography
+@import images
+@import page_layouts</p>
+
+<p>Then to define a theme for &#39;client<em>a&#39;
+public/stylesheets/sass/client</em>a.sass
+public/stylesheets/sass/client<em>a/</em>colors.sass
+public/stylesheets/sass/client<em>a/</em>typography.sass
+public/stylesheets/sass/client<em>a/</em>images.sass
+public/stylesheets/sass/client<em>a/</em>page_layouts.sass</p>
+
+<p>and client<em>a.sass imports all partials in the client</em>a folder
+client<em>a.sass
+@import client</em>a/colors
+@import client<em>a/typography
+@import client</em>a/images
+@import client<em>a/</em>page_layouts.sass</p>
+
+<p>A baseline with client specific overrides
+We use Ruby style instance variable caching to initialize the baseline sass variables.
+public/stylesheets/sass/<em>colors.sass
+!body</em>background ||= #0b274e
+!content_background ||= #222222
+!text ||= #FFFFFF</p>
+
+<p>Correspondingly, all client specifies values are initialized.
+public/stylesheets/sass/client<em>a/</em>colors.sass
+!body<em>background = #0b274e
+!content</em>background = #444444</p>
+
+<p>Then to tie this all together, just include the right client sass based on the client selection earlier. eg For client<em>a - include client</em>a.sass. client<em>a.sass will look like this now -
+client</em>a.sass
+@import client<em>a/colors
+@import client</em>a/typography
+@import client<em>a/images
+@import baseline.sass
+@import client</em>a/<em>page</em>layouts.sass</p>
+
+<p>All SASS variable defined by client partials will be initialized first and then the uninitialized ones will be defaulted by baseline.sass. Then all client specific css rules(in client_a/layouts.sass) override the default ones defined by baseline.sass. The key here is to include all client specific partials with SASS variables before baseline.sass and all client specific partials with css rules after baseline.sass.</p>
+
+<p>Other things which help
+&gt; All common images like buttons, icons etc should have a transparent background so that they can be themed with a background color.
+&gt; All images follow a standard size across multiple themes. This will prevent layouts from breaking.
+&gt; The SASS variables in their partials(colors, fonts, images) each represent a legend. For ex, _color.sass is the color legend. So name your variables carefully. Ideally a designer should be able look at it at tweak colors automagically.
+&gt; Make sure you use the exact same css selector to override a baseline styling. For example, for
+&lt;div class=&quot;home&quot;&gt;
+&lt;a class=&quot;home-link&quot; href=&quot;#&quot;&gt;Home&lt;/a&gt;
+&lt;/div&gt;</p>
+
+<p>baseline.sass
+.home a
+color: red
+then override using</p>
+
+<p>client<em>a.sass
+.home a
+color: black
+and not
+client</em>a.sass
+.home-link
+color: black</p>
+
+<p>And thats it. Hope it helps !</p>
+</div>
+        </section>
+      </div>
+      <div id='page-footer'></div>
+    </div>
+    <footer>
+      Made with Middleman &bull; Hosted on Github
+    </footer>
+  </body>
+</html>
+
