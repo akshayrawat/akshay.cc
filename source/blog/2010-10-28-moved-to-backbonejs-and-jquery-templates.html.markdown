@@ -4,7 +4,7 @@ date: 2010-10-28 20:41 +05:30
 ---
 I had been planning to move DirectoryOfMinisters to Javascript for sometime now. It is a simple directory to find information on Members of Parliament from various states in India. It was based on a Sinatra backend which consumed data served by an API with Haml,Sass for view goodness.
 The options I evaluated were SproutCore, Cappuccino and Backbonejs. I did think too much about JQuery Data bindings, because I wanted to explore an MVC solution to building a frontend, albeit a simple one. I finally went with Backbonejs because it was the lightest thing I could use and the fastest to implement (for me). The only features which I really wanted were - JSON backed models, Javascript templating, the ability to listen to events for model modifications and a basic structure to organizing JS code.
-To get an idea of how simple this application is, visit http://directory.myminister.info. Here is a brief on how the code looks.
+To get an idea of how simple this application is, visit `http://directory.myminister.info`. Here is a brief on how the code looks.
 
 The main page of the app is index.html, it just loads all the JS files in app.
 index.html
