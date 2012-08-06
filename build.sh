@@ -1,7 +1,6 @@
 bundle exec middleman build
 
 mv build /tmp/
-cp CNAME /tmp/build/
 
 git checkout gh-pages
 git rm -rf .
