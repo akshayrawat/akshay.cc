@@ -2,14 +2,15 @@
 title: INR Payment using Stripe
 date: 2012-01-29 20:41 +05:30
 ---
-**The question**
+#### The question
+
 [Stripe](https://stripe.com/) + [Open Source Currency Rate Exchange API](http://josscrowcroft.github.com/open-exchange-rates/) = Accept Payments in INR without a merchant account, if you have a US bank account and are fine with coming in USD. How well does it work ?
 
-**The answer**
+#### The answer
 
 A work in progress, so don't make any decisions based on this work.
 
-**Notes**
+#### Notes
 
 Stripe is a good starting point for small ideas which want to accept payments overnight, and deal with the formalities later.
 
