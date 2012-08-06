@@ -21,12 +21,13 @@
     #top-bg
     #page.container-fluid
       .row-fluid
-        %aside#sidebar.span3
-          = partial 'sidebar'
-        %section#main.span9
-          = yield
+        .span3
+          %aside#sidebar
+            = partial 'sidebar'
+        .span9
+          %section#main
+            = yield
       #page-footer
 
     %footer
-      .foo
-        Made with Middleman &bull; Hosted on Github
+      Made with Middleman &bull; Hosted on Github

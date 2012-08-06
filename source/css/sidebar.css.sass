@@ -1,5 +1,7 @@
 #sidebar
-  margin-top: 40px
+  position: fixed
+  top: 40px
+  width: 21.97%
   #logo
     padding-left: 20px
   #main-nav
@@ -35,3 +37,13 @@
           vertical-align: middle
       &:hover
         background: darken($light_green, 10%)
+
+@media(max-width: 767px)
+  #sidebar
+    position: static
+    width: auto
+    margin-top: 20px
+
+@media(max-width: 979px)
+  #sidebar
+    top: 70px
