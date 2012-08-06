@@ -1,47 +1,31 @@
 ---
-title: UI Prototyping
+title: On UI Prototyping
 date: 2010-01-14 20:41 +05:30
 ---
-Post Redirects to Get is a common pattern seen in most web applications. If a POST changes the server state, eg. by storing a value in the database then it should redirect to a GET so that when a user refreshes the page, the browser doesn't POST the data again. All good until now, but what happens when a POST does not change the server state and this is interesting when it comes to bookmarking such pages.
+Thorough UI Prototyping before development has become a mainstream practice in a lot of companies. Almost every company has their own style. Sometimes, that style may provide a direct competitive advantage. Prototypes also differ based on their purpose. Some use it for driving all kinds of analysis during design, some for building proof of concepts for gaining shareholder/VC acceptance and some even for ensuring that the development doesn’t go wrong, specially when the work is not co-located. Here are some things we learnt on a recent custom development job.
 
-Here is how in Rails a simple scaffolded User controller looks like:
+**Skip building high-fidelity prototypes** with tools like Photoshop, Fireworks etc. These kinds of prototypes take longer to build, incorporate unnecessary details and cannot be reused during the development. The tools provide unnecessary pixel drawing power and flexibility which only serve as a distraction to the team.
 
-users_controller.rb
-  def new
-    @user = User.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml =&gt; @user }
-    end
-  end
+**Skip building low-fidelity prototypes** with paper, or tools like Balsamiq, OmniGraffle. These might be good for white-boarding or brainstorming sessions, but definitely cannot keep up when more detailed analysis, usability testing or actual behavior is required. It is hard to get creative when all you have are lines to draw wireframes. Again, these cannot be reused during the development.
 
-  def create
-    @user = User.new(params[:user])
+For prototyping, **use a whiteboard** for high level features. For anything more, use **lightweight HTML/CSS frameworks** like HAML, SASS, Blueprint which make composing HTML pages much faster and simpler. Its fast and straightforward to get into the ‘tweak &amp; refresh’ cycle. Since more developers are familiar with HTML, than with tools like Photoshop, it makes collaboration much easier. Also, parts of the code can be used to guide development and as [big visible charts](http://xprogramming.com/articles/bigvisiblecharts/).
 
-    respond_to do |format|
-      if @user.save
-        flash[:notice] = 'User was successfully created.'
-        format.html { redirect_to(@user) }
-        format.xml  { render :xml =&gt; @user, :status =&gt; :created, :location =&gt; @user }
-      else
-        format.html { render :action =&gt; "new" }
-        format.xml  { render :xml =&gt; @user.errors, :status =&gt; :unprocessable_entity }
-      end
-    end
-  end
+Since the prototype is all plain code, **version controlling** your prototypes with Git or Mercurial is a must - this makes branching and merging easier.  Unknown elements can be ‘spiked’ in their own branch, to be merged or discarded later, based on feedback. This also makes cross pollination of features across multiple prototypes(branches) much easier.
 
+**Build multiple versions, in time-boxed runs**. This is a common mistake made by many teams. If you are starting on a fresh application, make sure to try at least 2 to 3 prototypes with different ideas, in fixed periods of time. Once you have settled for one, you have laid down the foundations for features like top level navigation, page structures, data presentation, page work flows, basic color &amp; typography schemes etc.
 
-The two actions 'create' and 'new' are of interest to us here.
-Now imagine this:
+**Avoid Big Upfront Prototyping**. In our case prototypes were just enough to tell us about the work 2-3 weeks in advance. Our development iteration cycle was a couple of weeks behind the prototype.
 
-1&gt; User is on the New User page at '/users/new'
-2&gt; Submits the form with invalid data
-3&gt; The form is re-rendered with errors, the url has changed to '/users/.
+Prototypes are a good starting point for **Domain Driven Design sessions**. We used it to build a common vocabulary/language across the team - developers, analysts and the users. These were words &amp; concepts around - ‘kinds of users’ (e.g. Content Creators, Admins, Designers, End Users), domain terms(e.g. Staging Period, End Of Life), names given to pages, views of data on pages (business card view of a person), etc.
 
-Here we are in a state where we are on a URL which cannot be bookmarked to get us to the same page. Now, what is the correct solution here. We could
-&gt; We could redirect to 'new', but then we would lose all validation errors, or
-&gt; Store the full error messages in flash and redirect to 'new', or
-&gt; Store the invalid object in flash, and then retrieve it in the 'new' action to show the errors.
+**Use design metaphors from other popular sites or design books** (my favorite being Designing Interfaces) to explain complex concepts or UI patterns like Digg style voting system or Facebook like feeds. Also the YUI pattern library provided a lot of language around UI elements.
 
-This decision really comes down to how important bookmarking of pages is in your application.  All three options introduce unnecessary code kludge - and are probably not worth it, ie. I would prefer breaking bookmarking in some scenarios in the app.
-For me, this is really a 'good to know' for post production error diagnosis, when you look at exception logs which show GETs on URLs which expect only POSTS. I've seen this done not only by browsers but also by search bots.
+**Don’t prototype what you know**. Good examples are login pages, validates failures, filters, searches, cancel buttons. Stub out as many links as you can or any other behavior which is well understood. Don’t Repeat Yourself - talk and explain a concept instead of prototyping if it is close to something already prototyped.
+
+**It is ok for the prototype to be out of sync**. A prototype type needs to be forward compatible not backward. We tried to follow this as much as possible.
+
+**Build a screencast with audio** once your are done, explaining the concepts and the workings of the prototype. This will be enough for 80% of the audience.
+
+**Use your judgement to kill the prototype**.  There is an obvious cost to prototyping, make sure the prototype is giving you enough bang for the buck, at all times.
+
+**Finally, use prototypes as guidelines**, not as rules during implementation. A lot of dynamics are exposed during actual implementation, use this as feedback in the prototype. We specially saw this come true during development. We realized that our implementation differed from our prototypes by nearly 30% - 40% in the end.

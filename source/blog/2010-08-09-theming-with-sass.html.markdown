@@ -16,38 +16,42 @@ Once the client is determined, we know now which theme to use. First its importa
 
 Now start with a baseline theme. All the client themes provide specific overrides to this. When using Rails, here is how to structure the SASS folders
 
-    public/stylesheets/sass/baseline.sass
-    public/stylesheets/sass/_colors.sass
-    public/stylesheets/sass/_typography.sass
-    public/stylesheets/sass/_images.sass
-    public/stylesheets/sass/_page_layouts.sass
-
-The baseline.sass imports the baseline partials. It also defines/imports all generic stylings like page layouts etc.
-
-```sass
-    baseline.sass
-    @import colors
-    @import typography
-    @import images
-    @import page_layouts
+```bash
+public/stylesheets/sass/baseline.sass
+public/stylesheets/sass/_colors.sass
+public/stylesheets/sass/_typography.sass
+public/stylesheets/sass/_images.sass
+public/stylesheets/sass/_page_layouts.sass
 ```
 
-Then to define a theme for 'client_a'
-
-    public/stylesheets/sass/client_a.sass
-    public/stylesheets/sass/client_a/_colors.sass
-    public/stylesheets/sass/client_a/_typography.sass
-    public/stylesheets/sass/client_a/_images.sass
-    public/stylesheets/sass/client_a/_page_layouts.sass
-
-and client_a.sass imports all partials in the client_a folder
+The `baseline.sass` imports the baseline partials. It also defines/imports all generic stylings like page layouts etc.
 
 ```sass
-    client_a.sass
-    @import client_a/colors
-    @import client_a/typography
-    @import client_a/images
-    @import client_a/_page_layouts.sass
+baseline.sass
+@import colors
+@import typography
+@import images
+@import page_layouts
+```
+
+Then to define a theme for `client_a`
+
+```bash
+public/stylesheets/sass/client_a.sass
+public/stylesheets/sass/client_a/_colors.sass
+public/stylesheets/sass/client_a/_typography.sass
+public/stylesheets/sass/client_a/_images.sass
+public/stylesheets/sass/client_a/_page_layouts.sass
+```
+
+and `client_a.sass` imports all partials in the client_a folder
+
+```sass
+client_a.sass
+@import client_a/colors
+@import client_a/typography
+@import client_a/images
+@import client_a/_page_layouts.sass
 ```
 
 #### A baseline with client specific overrides
@@ -55,32 +59,32 @@ and client_a.sass imports all partials in the client_a folder
 We use Ruby style instance variable caching to initialize the baseline sass variables.
 
 ```sass
-    public/stylesheets/sass/_colors.sass
-    !body_background ||= #0b274e
-    !content_background ||= #222222
-    !text ||= #FFFFFF
+public/stylesheets/sass/_colors.sass
+!body_background ||= #0b274e
+!content_background ||= #222222
+!text ||= #FFFFFF
 ```
 
 Correspondingly, all client specifies values are initialized.
 
 ```sass
-    public/stylesheets/sass/client_a/_colors.sass
-    !body_background = #0b274e
-    !content_background = #444444
+public/stylesheets/sass/client_a/_colors.sass
+!body_background = #0b274e
+!content_background = #444444
 ```
 
-Then to tie this all together, just include the right client sass based on the client selection earlier. eg For client_a - include client_a.sass. client_a.sass will look like this now:
+Then to tie this all together, just include the right client sass based on the client selection earlier. eg For client_a - include `client_a.sass`. `client_a.sass` will look like this now:
 
 ```sass
-    client_a.sass
-    @import client_a/colors
-    @import client_a/typography
-    @import client_a/images
-    @import baseline.sass
-    @import client_a/_page_layouts.sass
+client_a.sass
+@import client_a/colors
+@import client_a/typography
+@import client_a/images
+@import baseline.sass
+@import client_a/_page_layouts.sass
 ```
 
-All SASS variable defined by client partials will be initialized first and then the uninitialized ones will be defaulted by baseline.sass. Then all client specific css rules(in client_a/layouts.sass) override the default ones defined by baseline.sass. The key here is to include all client specific partials with SASS variables before baseline.sass and all client specific partials with css rules after baseline.sass.
+All SASS variable defined by client partials will be initialized first and then the uninitialized ones will be defaulted by baseline.sass. Then all client specific css rules(in `client_a/layouts.sass`) override the default ones defined by `baseline.sass`. The key here is to include all client specific partials with SASS variables before `baseline.sass` and all client specific partials with css rules after `baseline.sass`.
 
 #### Other things which help
 
@@ -90,30 +94,30 @@ All SASS variable defined by client partials will be initialized first and then 
 * Make sure you use the exact same css selector to override a baseline styling. For example, for
 
 ```html
-    <div class="home">
-      <a class="home-link" href="#">Home</a>
-    </div>
+<div class="home">
+  <a class="home-link" href="#">Home</a>
+</div>
 ```
 
 ```sass
-    baseline.sass
-    .home a
-    color: red
+baseline.sass
+.home a
+  color: red
 ```
 
 then override using
 
 ```sass
-    client_a.sass
-    .home a
-    color: black
+client_a.sass
+.home a
+  color: black
 ```
 
 and not
 
 ```sass
-    client_a.sass
-    .home-link
-    color: black
+client_a.sass
+.home-link
+  color: black
 ```
 And thats it. Hope it helps !
