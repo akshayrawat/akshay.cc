@@ -3,7 +3,21 @@
   top: 40px
   width: 21.97%
   #logo
-    padding-left: 20px
+    text-align: center
+    margin-left: 25px
+    height: 125px
+    width: 125px
+    @include border-radius(125px)
+    background: $light_green
+    a
+      font-size: 75px
+      color: white
+      i
+        width: 125px
+        line-height: 125px
+    &:hover
+      background: darken($light_green, 3%)
+
   #main-nav
     margin: 50px 0 0 28px
     li 
