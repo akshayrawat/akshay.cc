@@ -8,4 +8,4 @@
       .pull-right
         = current_article.date.strftime('%b %d %Y')
   .blog-body
-    = current_article.body
+    = render_blog_body(current_article.body)

@@ -47,6 +47,11 @@ helpers do
   def nav_class_for nav_page
     nav_page == @page ? "active" : "inactive"
   end
+
+  def render_blog_body body
+    redcarpet = Redcarpet::Markdown.new(Redcarpet::Render::HTML, fenced_code_blocks: true)
+    redcarpet.render(body)
+  end
 end
 
 set :css_dir, 'css'
