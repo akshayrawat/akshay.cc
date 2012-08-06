@@ -11,9 +11,29 @@ compass_config do |config|
   config.output_style = :compact
 end
 
+class HighlightedHTML < Redcarpet::Render::HTML
+  def block_code(code, language)
+    result = %Q{<div class="highlight #{language}">}
+    result += '<div class="ribbon"></div>'
+    code.gsub!(/^\n+/, '')
+    code.rstrip!
+    code = CodeRay.scan(code, language)
+    result += code.div css: :class,
+                    line_numbers: :table,
+                    line_number_anchors: false
+
+    result += %Q{</div>}
+    result
+  end
+end
 
 set :markdown_engine, :redcarpet
-set :markdown, tables: true, autolink: true, gh_blockcode: true
+set :markdown, tables: true,
+               autolink: true,
+               gh_blockcode: true,
+               fenced_code_blocks: true,
+               lax_html_blocks: true,
+               renderer: HighlightedHTML.new
 
 ###
 # Page options, layouts, aliases and proxies
@@ -47,12 +67,8 @@ helpers do
   def nav_class_for nav_page
     nav_page == @page ? "active" : "inactive"
   end
-
-  def render_blog_body body
-    redcarpet = Redcarpet::Markdown.new(Redcarpet::Render::HTML, fenced_code_blocks: true)
-    redcarpet.render(body)
-  end
 end
+
 
 set :css_dir, 'css'
 set :js_dir, 'js'
@@ -67,7 +83,6 @@ activate :blog do |blog|
 end
 
 ignore 'layouts/*'
-
 
 # Build-specific configuration
 configure :build do
