@@ -15,7 +15,7 @@
     <link href="/css/application.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" media="screen" rel="stylesheet" type="text/css" />
   </head>
-  <body class='blog'>
+  <body class='blogs'>
     <!--[if lt IE 7]> <p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p> <![endif]-->
     <div id='top-bg'></div>
     <div class='container-fluid' id='page'>
@@ -28,7 +28,7 @@
             </h1>
             <nav id='main-nav'>
               <ul>
-                <li class='inactive'>
+                <li class='active'>
                   <a href="/">Blog</a>
                 </li>
                 <li class='inactive'>
@@ -78,92 +78,171 @@
   </h2>
 </div>
 <div class='blog-body'>
-  <p>I had been planning to move DirectoryOfMinisters to Javascript for sometime now. It is a simple directory to find information on Members of Parliament from various states in India. It was based on a Sinatra backend which consumed data served by an API with Haml,Sass for view goodness.
+  <p>I had been planning to move <a href="http://directory.myminister.info/">DirectoryOfMinisters</a> to Javascript for sometime now. It is a simple directory to find information on Members of Parliament from various states in India. It was based on a Sinatra backend which consumed data served by an API with Haml,Sass for view goodness.
 The options I evaluated were SproutCore, Cappuccino and Backbonejs. I did think too much about JQuery Data bindings, because I wanted to explore an MVC solution to building a frontend, albeit a simple one. I finally went with Backbonejs because it was the lightest thing I could use and the fastest to implement (for me). The only features which I really wanted were - JSON backed models, Javascript templating, the ability to listen to events for model modifications and a basic structure to organizing JS code.
 To get an idea of how simple this application is, visit <code>http://directory.myminister.info</code>. Here is a brief on how the code looks.</p>
 
-<p>The main page of the app is index.html, it just loads all the JS files in app.
-index.html
-index.html
-&lt;script src=&quot;/js/mpprofile.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;/js/mps.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;/js/states.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;/js/init.js&quot;&gt;&lt;/script&gt;
-Each javascript file here represents a view. init.js starts up the app by initializing the first view.
-init.js
-$(document).ready(function(){
-  new StateView();
-});
-Now when a StatesView is initialized, it creates a new States collection. The States initializer knows how to get the data to initialize the State model.</p>
-
-<p>states.js
-var StateView = Backbone.View.extend({
-  id: &#39;states&#39;,</p>
-
-<p>events: {
-    &quot;click #states table tr[id]&quot;: &quot;stateSelected&quot;
-  },</p>
-
-<p>initialize: function(){
-    this.states = new States();
-    this.states.bind(&#39;refresh&#39;, this.refresh);
+<p>The main page of the app is <code>index.html</code>, it just loads all the JS files in app.</p>
+<div class="highlight html"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+5
+</pre></td>
+  <td class="code"><pre>index.html
+<span class="tag">&lt;script</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/js/mpprofile.js</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/script&gt;</span>
+<span class="tag">&lt;script</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/js/mps.js</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/script&gt;</span>
+<span class="tag">&lt;script</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/js/states.js</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/script&gt;</span>
+<span class="tag">&lt;script</span> <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/js/init.js</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/script&gt;</span></pre></td>
+</tr></table>
+</div>
+<p>Each javascript file here represents a view. <code>init.js</code> starts up the app by initializing the first view.</p>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>init.js
+<span class="predefined">$</span>(document).ready(<span class="keyword">function</span>(){
+  <span class="keyword">new</span> StateView();
+});</pre></td>
+</tr></table>
+</div>
+<p>Now when a <code>StatesView</code> is initialized, it creates a new <code>States</code> collection. The States initializer knows how to get the data to initialize the State model.</p>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+<strong>10</strong>
+11
+</pre></td>
+  <td class="code"><pre>states.js
+<span class="keyword">var</span> StateView = Backbone.View.extend({
+  <span class="key">id</span>: <span class="string"><span class="delimiter">'</span><span class="content">states</span><span class="delimiter">'</span></span>,
+  <span class="key">events</span>: {
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">click #states table tr[id]</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">stateSelected</span><span class="delimiter">&quot;</span></span>
+  },
+  <span class="function">initialize</span>: <span class="keyword">function</span>(){
+    <span class="local-variable">this</span>.states = <span class="keyword">new</span> States();
+    <span class="local-variable">this</span>.states.bind(<span class="string"><span class="delimiter">'</span><span class="content">refresh</span><span class="delimiter">'</span></span>, <span class="local-variable">this</span>.refresh);
   }
-}
-states.js
-var States  = Backbone.Collection.extend({
-  model: State,
-  initialize: function(){
-    var that = this;
-    $.ajax({
-      url : Config.api_host + &#39;/states.json&#39;,
-      dataType : &quot;jsonp&quot;,
-      success : function (data, status, xhr) {
-      that.refresh($.parseJSON(data.model));
+}</pre></td>
+</tr></table>
+</div><div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+<strong>10</strong>
+11
+12
+13
+</pre></td>
+  <td class="code"><pre>states.js
+<span class="keyword">var</span> States  = Backbone.Collection.extend({
+  <span class="key">model</span>: State,
+  <span class="function">initialize</span>: <span class="keyword">function</span>(){
+    <span class="keyword">var</span> that = <span class="local-variable">this</span>;
+    <span class="predefined">$</span>.ajax({
+      <span class="key">url</span> : Config.api_host + <span class="string"><span class="delimiter">'</span><span class="content">/states.json</span><span class="delimiter">'</span></span>,
+      <span class="key">dataType</span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">jsonp</span><span class="delimiter">&quot;</span></span>,
+      <span class="function">success</span> : <span class="keyword">function</span> (data, status, xhr) {
+      that.refresh(<span class="predefined">$</span>.parseJSON(data.model));
     }
   }
-});</p>
-
-<p>In this case we make a jsonp request to get data from a different subdomain. The view listens to the refresh event on the collection. refresh is used to initialize the collection with the model json. After refresh happens, we get the JQuery template for the view and bind the data to it.</p>
-
-<p>states.js
-render: function() {
-  var that = this;
-  $.get(&#39;/html/_states.tpl.html&#39;, function(statesTemplate) {
-    this.$(this.el).html($.tmpl(statesTemplate, {stateList: this.states.models}););
-    $(&quot;#col-1&quot;).html(this.el);
+});</pre></td>
+</tr></table>
+</div>
+<p>In this case we make a jsonp request to get data from a different subdomain. The view listens to the <code>refresh</code> event on the collection. <code>refresh</code> is used to initialize the collection with the model json. After <code>refresh</code> happens, we get the JQuery template for the view and bind the data to it.</p>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td>
+  <td class="code"><pre>states.js
+<span class="function">render</span>: <span class="keyword">function</span>() {
+  <span class="keyword">var</span> that = <span class="local-variable">this</span>;
+  <span class="predefined">$</span>.get(<span class="string"><span class="delimiter">'</span><span class="content">/html/_states.tpl.html</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>(statesTemplate) {
+    <span class="local-variable">this</span>.<span class="predefined">$</span>(<span class="local-variable">this</span>.el).html(<span class="predefined">$</span>.tmpl(statesTemplate, {<span class="key">stateList</span>: <span class="local-variable">this</span>.states.models}););
+    <span class="predefined">$</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">#col-1</span><span class="delimiter">&quot;</span></span>).html(<span class="local-variable">this</span>.el);
   });
-  return this;
-}</p>
+  <span class="keyword">return</span> <span class="local-variable">this</span>;
+}</pre></td>
+</tr></table>
+</div>
+<p>And we have our first page. Now, when a state is selected, the handler <code>stateSelectedbound</code> to the state row creates a new <code>MPView</code>.</p>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>states.js
+<span class="function">stateSelected</span>: <span class="keyword">function</span>(event){
+  <span class="keyword">new</span> MPView({<span class="key">stateId</span>: event.currentTarget.id});
+}</pre></td>
+</tr></table>
+</div>
+<p>The <code>MPView</code> initialization again initializes the Collection first, which knows which url to get the data from. In this case we get all the ministers for the state id.
+The full source code for this app is here. I&#39;m still in the process of improving it as I get more fimilar with Backbonejs. </p>
 
-<p>And we have our first page. Now, when a state is selected, the handler stateSelectedbound to the state row creates a new MPView.</p>
+<p>Having said that, there are 2 things I wish BackboneJS would do better.</p>
 
-<p>states.js
-stateSelected: function(event){
-  new MPView({stateId: event.currentTarget.id});
-}</p>
-
-<p>The MPView initialization again initializes the Collection first, which knows which url to get the data from. In this case we get all the ministers for the state id.
-The full source code for this app is here. I&#39;m still in the process of improving it as I get more fimilar with Backbonejs. 
-Having said that, there are 2 things I wish BackboneJS would do better.
-Usually a Collection can define its source url like this
-var Notes = Backbone.Collection.extend({
-  url: &#39;/notes&#39;
-});
-This is very nice indeed, except that it doesn&#39;t work when the datatype is jsonp. Then one has to drop down to jquery to make a jsonp ajax call to get the data.
+<p>Usually a Collection can define its source url like this</p>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre><span class="keyword">var</span> Notes = Backbone.Collection.extend({
+  <span class="key">url</span>: <span class="string"><span class="delimiter">'</span><span class="content">/notes</span><span class="delimiter">'</span></span>
+});</pre></td>
+</tr></table>
+</div>
+<p>This is very nice indeed, except that it doesn&#39;t work when the datatype is <code>jsonp</code>. Then one has to drop down to jquery to make a jsonp ajax call to get the data.
 A view can listen to events on UI elements like this</p>
-
-<p>var DocumentRow = Backbone.View.extend({
-  tagName: &quot;li&quot;,
-  className: &quot;document-row&quot;,
-  events: {
-    &quot;click .button.edit&quot;:   &quot;openEditDialog&quot;
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td>
+  <td class="code"><pre><span class="keyword">var</span> DocumentRow = Backbone.View.extend({
+  <span class="key">tagName</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">li</span><span class="delimiter">&quot;</span></span>,
+  <span class="key">className</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">document-row</span><span class="delimiter">&quot;</span></span>,
+  <span class="key">events</span>: {
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">click .button.edit</span><span class="delimiter">&quot;</span></span>:   <span class="string"><span class="delimiter">&quot;</span><span class="content">openEditDialog</span><span class="delimiter">&quot;</span></span>
   }
-}
-Nice again. Here this is bound to the view. This is very handy indeed unless you want to know which element was clicked. In which case I had to resort to using JQuery&#39;s click , which sets the this to the clicked element.
+}</pre></td>
+</tr></table>
+</div>
+<p>Nice again. Here this is bound to the view. This is very handy indeed unless you want to know which element was clicked. In which case I had to resort to using JQuery&#39;s click , which sets the this to the clicked element.
 Some examples on unit testing BackboneJS MVC would also be nice.
 Now back to exploring some server side js !</p>
 
-<p>Update: The code kludge with binding events (complaint no. 2) is gone based on this comment from <a href="mailto:Jeremy@DocumentCloud">Jeremy@DocumentCloud</a>. The example above is corrected.</p>
+<p><strong>Update:</strong> The code kludge with binding events (complaint no. 2) is gone based on this comment from Jeremy Ashkenas. The example above is corrected.</p>
 </div>
           </section>
         </div>

@@ -15,7 +15,7 @@
     <link href="/css/application.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" media="screen" rel="stylesheet" type="text/css" />
   </head>
-  <body class='blog'>
+  <body class='blogs'>
     <!--[if lt IE 7]> <p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p> <![endif]-->
     <div id='top-bg'></div>
     <div class='container-fluid' id='page'>
@@ -28,7 +28,7 @@
             </h1>
             <nav id='main-nav'>
               <ul>
-                <li class='inactive'>
+                <li class='active'>
                   <a href="/">Blog</a>
                 </li>
                 <li class='inactive'>
@@ -70,7 +70,7 @@
             <div class='page-title'>
   <h2>
     <div class='pull-left'>
-      Bookmarking and Post-RedirectTo-Get in Rails
+      Bookmarking and the post-redirects-to-get pattern in Rails
     </div>
     <div class='pull-right'>
       Jan 11 2010
@@ -78,33 +78,74 @@
   </h2>
 </div>
 <div class='blog-body'>
-  <p>UI Prototyping has become a mainstream practice in a lot of companies doing custom development work. Almost every company has their own style. Sometimes, that style may provide a direct competitive advantage. Prototypes also differ based on their purpose. Some use it for driving all kinds of analysis during design, some for building proof of concepts for gaining shareholder/VC acceptance and some even for ensuring that the development doesn’t go wrong, specially when the work is not co-located. Here are some things we learnt on a recent custom development job.</p>
+  <p><a href="http://en.wikipedia.org/wiki/Post/Redirect/Get">Post Redirects to Get</a> is a common pattern seen in most web applications. If a POST changes the server state, eg. by storing a value in the database then it should redirect to a GET so that when a user refreshes the page, the browser doesn&#39;t POST the data again. All good until now, but what happens when a POST does not change the server state and this is interesting when it comes to bookmarking such pages.</p>
 
-<p>Skip building high-fidelity prototypes with tools like Photoshop, Fireworks etc. These kinds of prototypes take longer to build, incorporate unnecessary details and cannot be reused during the development. The tools provide unnecessary pixel drawing power and flexibility which only serve as a distraction to the team.</p>
+<p>Here is how in Rails a simple scaffolded User controller looks like:</p>
+<div class="highlight ruby"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+<strong>10</strong>
+11
+12
+13
+14
+15
+16
+17
+18
+19
+<strong>20</strong>
+21
+</pre></td>
+  <td class="code"><pre>users_controller.rb
+<span class="keyword">def</span> <span class="function">new</span>
+  <span class="instance-variable">@user</span> = <span class="constant">User</span>.new
+  respond_to <span class="keyword">do</span> |format|
+    format.html <span class="comment"># new.html.erb</span>
+    format.xml  { render <span class="symbol">:xml</span> =&amp;gt; <span class="instance-variable">@user</span> }
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="keyword">def</span> <span class="function">create</span>
+  <span class="instance-variable">@user</span> = <span class="constant">User</span>.new(params[<span class="symbol">:user</span>])
+  respond_to <span class="keyword">do</span> |format|
+    <span class="keyword">if</span> <span class="instance-variable">@user</span>.save
+      flash[<span class="symbol">:notice</span>] = <span class="string"><span class="delimiter">'</span><span class="content">User was successfully created.</span><span class="delimiter">'</span></span>
+      format.html { redirect_to(<span class="instance-variable">@user</span>) }
+      format.xml  { render <span class="symbol">:xml</span> =&amp;gt; <span class="instance-variable">@user</span>, <span class="symbol">:status</span> =&amp;gt; <span class="symbol">:created</span>, <span class="symbol">:location</span> =&amp;gt; <span class="instance-variable">@user</span> }
+    <span class="keyword">else</span>
+      format.html { render <span class="symbol">:action</span> =&amp;gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">new</span><span class="delimiter">&quot;</span></span> }
+      format.xml  { render <span class="symbol">:xml</span> =&amp;gt; <span class="instance-variable">@user</span>.errors, <span class="symbol">:status</span> =&amp;gt; <span class="symbol">:unprocessable_entity</span> }
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
+</tr></table>
+</div>
+<p>The two actions <code>create</code> and <code>new</code> are of interest to us here.
+Now when:</p>
 
-<p>Skip building low-fidelity prototypes with paper, or tools like Balsamiq, OmniGraffle. These might be good for white-boarding or brainstorming sessions, but definitely cannot keep up when more detailed analysis, usability testing or actual behavior is required. It is hard to get creative when all you have are lines to draw wireframes. Again, these cannot be reused during the development.</p>
+<ul>
+<li>User is on the New User page at <code>/users/new</code></li>
+<li>Submits the form with invalid data</li>
+<li>The form is re-rendered with errors, the url has changed to <code>/users/</code>.</li>
+</ul>
 
-<p>For prototyping, use a whiteboard for high level features. For anything more, use lightweight HTML/CSS frameworks like HAML, SASS, Blueprint which make composing HTML pages much faster and simpler. Its fast and straightforward to get into the ‘tweak &amp; refresh’ cycle. Since more developers are familiar with HTML, than with tools like Photoshop, it makes collaboration much easier. Also, parts of the code can be used to guide development and as big visible charts.</p>
+<p>Here we are in a state where we are on a URL which cannot be bookmarked to get us to the same page. Now, what is the correct solution here. We could</p>
 
-<p>Since the prototype is all plain code, version controlling your prototypes with Git or Mercurial is a must - this makes branching and merging easier.  Unknown elements can be ‘spiked’ in their own branch, to be merged or discarded later, based on feedback. This also makes cross pollination of features across multiple prototypes(branches) much easier.</p>
+<ul>
+<li>We could redirect to <code>new</code>, but then we would lose all validation errors, or</li>
+<li>Store the full error messages in flash and redirect to <code>new</code>, or</li>
+<li>Store the invalid object in flash, and then retrieve it in the <code>new</code> action to show the errors.</li>
+</ul>
 
-<p>Build multiple versions, in time-boxed runs. This is a common mistake made by many teams. If you are starting on a fresh application, make sure to try at least 2 to 3 prototypes with different ideas, in fixed periods of time. Once you have settled for one, you have laid down the foundations for features like top level navigation, page structures, data presentation, page work flows, basic color &amp; typography schemes etc.</p>
-
-<p>Avoid Big Upfront Prototyping. In our case prototypes were just enough to tell us about the work 2-3 weeks in advance. Our development iteration cycle was a couple of weeks behind the prototype.</p>
-
-<p>Prototypes are a good starting point for Domain Driven Design sessions. We used it to build a common vocabulary/language across the team - developers, analysts and the users. These were words &amp; concepts around - ‘kinds of users’ (e.g. Content Creators, Admins, Designers, End Users), domain terms(e.g. Staging Period, End Of Life), names given to pages, views of data on pages (business card view of a person), etc.</p>
-
-<p>Use design metaphors from other popular sites or design books (my favorite being Designing Interfaces) to explain complex concepts or UI patterns like Digg style voting system or Facebook like feeds. Also the YUI pattern library provided a lot of language around UI elements.</p>
-
-<p>Don’t prototype what you know. Good examples are login pages, validates failures, filters, searches, cancel buttons. Stub out as many links as you can or any other behavior which is well understood. Don’t Repeat Yourself - talk and explain a concept instead of prototyping if it is close to something already prototyped.</p>
-
-<p>It is ok for the prototype to be out of sync. A prototype type needs to be forward compatible not backward. We tried to follow this as much as possible.</p>
-
-<p>Build a Screen Cast with audio once your are done, explaining the concepts and the workings of the prototype. This will be enough for 80% of the audience.</p>
-
-<p>Use your judgement to kill the prototype.  There is an obvious cost to prototyping, make sure the prototype is giving you enough bang for the buck, at all times.</p>
-
-<p>Finally, use prototypes as guidelines, not as rules during implementation. A lot of dynamics are exposed during actual implementation, use this as feedback in the prototype. We specially saw this come true during development. We realized that our implementation differed from our prototypes by nearly 30% - 40% in the end.</p>
+<p>This decision really comes down to how important bookmarking of pages is in your application.  All three options introduce unnecessary code kludge - and are probably not worth it, ie. I would prefer breaking bookmarking in some scenarios in the app.
+For me, this is really a &#39;good to know&#39; for post production error diagnosis, when you look at exception logs which show GETs on URLs which expect only POSTS. I&#39;ve seen this done not only by browsers but also by search bots.</p>
 </div>
           </section>
         </div>

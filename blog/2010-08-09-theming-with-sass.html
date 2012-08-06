@@ -15,7 +15,7 @@
     <link href="/css/application.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" media="screen" rel="stylesheet" type="text/css" />
   </head>
-  <body class='blog'>
+  <body class='blogs'>
     <!--[if lt IE 7]> <p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p> <![endif]-->
     <div id='top-bg'></div>
     <div class='container-fluid' id='page'>
@@ -28,7 +28,7 @@
             </h1>
             <nav id='main-nav'>
               <ul>
-                <li class='inactive'>
+                <li class='active'>
                   <a href="/">Blog</a>
                 </li>
                 <li class='inactive'>
@@ -78,88 +78,172 @@
   </h2>
 </div>
 <div class='blog-body'>
-  <p>Does your application need to support multiple themes? SASS enables a neat technique to implement multiple themes in the same application. Here are some guidelines on how to go about it.</p>
+  <p>Does your application need to support multiple themes? <a href="http://sass-lang.com/">SASS</a> enables a neat technique to implement multiple themes in the same application. Here are some guidelines on how to go about it.</p>
 
 <p>Lets say we have an application which needs to support multiple clients each with its own custom branding eg. logo, colors, images, typography etc. Hence, each client comes with its own set of theming requirements. Here are some guidelines on how to go about it.</p>
 
-<p>Decide on what will determine which theme to display. 
-If the same deployment serves multiple clients each on their own domains/subdomains, then a decision to select the right client can be made by looking at the http headers. If each client is deployed independently then perhaps a configuration can decide which client to use.</p>
+<h4>Decide on what will determine which theme to display</h4>
 
-<p>Structuring SASS files.
-Once the client is determined, we know now which theme to use. First its important to structure your stylings correctly. I usually recommend to extract colors, typography, image urls into sass variables in their own SASS partials. Usually, you&#39;ll know what will change across clients and most of them could be good candidates for extraction into their own SASS partials.</p>
+<p>If the same deployment serves multiple clients each on their own domains/subdomains, then a decision to select the right client can be made by looking at the http headers. If each client is deployed independently then perhaps a configuration can decide which client to use.</p>
 
-<p>Now start with a baseline theme. All the client themes provide specific overrides to this. When using Rails, here is how to structure the SASS folders
-public/stylesheets/sass/baseline.sass
-public/stylesheets/sass/<em>colors.sass
-public/stylesheets/sass/</em>typography.sass
-public/stylesheets/sass/<em>images.sass
-public/stylesheets/sass/</em>page_layouts.sass</p>
+<h4>Structuring SASS files</h4>
 
-<p>The baseline.sass imports the baseline partials. It also defines/imports all generic stylings like page layouts etc.
-baseline.sass
+<p>Once the client is determined, we know now which theme to use. First its important to structure your stylings correctly. I usually recommend to extract colors, typography, image urls into sass variables in their own SASS partials. Usually, you&#39;ll know what will change across clients and most of them could be good candidates for extraction into their own SASS partials.</p>
+
+<p>Now start with a baseline theme. All the client themes provide specific overrides to this. When using Rails, here is how to structure the SASS folders</p>
+<div class="highlight bash"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+5
+</pre></td>
+  <td class="code"><pre>public/stylesheets/sass/baseline.sass
+public/stylesheets/sass/_colors.sass
+public/stylesheets/sass/_typography.sass
+public/stylesheets/sass/_images.sass
+public/stylesheets/sass/_page_layouts.sass</pre></td>
+</tr></table>
+</div>
+<p>The <code>baseline.sass</code> imports the baseline partials. It also defines/imports all generic stylings like page layouts etc.</p>
+<div class="highlight sass"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+5
+</pre></td>
+  <td class="code"><pre>baseline.sass
 @import colors
 @import typography
 @import images
-@import page_layouts</p>
+@import page_layouts</pre></td>
+</tr></table>
+</div>
+<p>Then to define a theme for <code>client_a</code></p>
+<div class="highlight bash"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+5
+</pre></td>
+  <td class="code"><pre>public/stylesheets/sass/client_a.sass
+public/stylesheets/sass/client_a/_colors.sass
+public/stylesheets/sass/client_a/_typography.sass
+public/stylesheets/sass/client_a/_images.sass
+public/stylesheets/sass/client_a/_page_layouts.sass</pre></td>
+</tr></table>
+</div>
+<p>and <code>client_a.sass</code> imports all partials in the client_a folder</p>
+<div class="highlight sass"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+5
+</pre></td>
+  <td class="code"><pre>client_a.sass
+@import client_a/colors
+@import client_a/typography
+@import client_a/images
+@import client_a/_page_layouts.sass</pre></td>
+</tr></table>
+</div>
+<h4>A baseline with client specific overrides</h4>
 
-<p>Then to define a theme for &#39;client<em>a&#39;
-public/stylesheets/sass/client</em>a.sass
-public/stylesheets/sass/client<em>a/</em>colors.sass
-public/stylesheets/sass/client<em>a/</em>typography.sass
-public/stylesheets/sass/client<em>a/</em>images.sass
-public/stylesheets/sass/client<em>a/</em>page_layouts.sass</p>
-
-<p>and client<em>a.sass imports all partials in the client</em>a folder
-client<em>a.sass
-@import client</em>a/colors
-@import client<em>a/typography
-@import client</em>a/images
-@import client<em>a/</em>page_layouts.sass</p>
-
-<p>A baseline with client specific overrides
-We use Ruby style instance variable caching to initialize the baseline sass variables.
-public/stylesheets/sass/<em>colors.sass
-!body</em>background ||= #0b274e
+<p>We use Ruby style instance variable caching to initialize the baseline sass variables.</p>
+<div class="highlight sass"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>public/stylesheets/sass/_colors.sass
+!body_background ||= #0b274e
 !content_background ||= #222222
-!text ||= #FFFFFF</p>
-
-<p>Correspondingly, all client specifies values are initialized.
-public/stylesheets/sass/client<em>a/</em>colors.sass
-!body<em>background = #0b274e
-!content</em>background = #444444</p>
-
-<p>Then to tie this all together, just include the right client sass based on the client selection earlier. eg For client<em>a - include client</em>a.sass. client<em>a.sass will look like this now -
-client</em>a.sass
-@import client<em>a/colors
-@import client</em>a/typography
-@import client<em>a/images
+!text ||= #FFFFFF</pre></td>
+</tr></table>
+</div>
+<p>Correspondingly, all client specifies values are initialized.</p>
+<div class="highlight sass"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>public/stylesheets/sass/client_a/_colors.sass
+!body_background = #0b274e
+!content_background = #444444</pre></td>
+</tr></table>
+</div>
+<p>Then to tie this all together, just include the right client sass based on the client selection earlier. eg For client_a - include <code>client_a.sass</code>. <code>client_a.sass</code> will look like this now:</p>
+<div class="highlight sass"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+5
+6
+</pre></td>
+  <td class="code"><pre>client_a.sass
+@import client_a/colors
+@import client_a/typography
+@import client_a/images
 @import baseline.sass
-@import client</em>a/<em>page</em>layouts.sass</p>
+@import client_a/_page_layouts.sass</pre></td>
+</tr></table>
+</div>
+<p>All SASS variable defined by client partials will be initialized first and then the uninitialized ones will be defaulted by baseline.sass. Then all client specific css rules(in <code>client_a/layouts.sass</code>) override the default ones defined by <code>baseline.sass</code>. The key here is to include all client specific partials with SASS variables before <code>baseline.sass</code> and all client specific partials with css rules after <code>baseline.sass</code>.</p>
 
-<p>All SASS variable defined by client partials will be initialized first and then the uninitialized ones will be defaulted by baseline.sass. Then all client specific css rules(in client_a/layouts.sass) override the default ones defined by baseline.sass. The key here is to include all client specific partials with SASS variables before baseline.sass and all client specific partials with css rules after baseline.sass.</p>
+<h4>Other things which help</h4>
 
-<p>Other things which help
-&gt; All common images like buttons, icons etc should have a transparent background so that they can be themed with a background color.
-&gt; All images follow a standard size across multiple themes. This will prevent layouts from breaking.
-&gt; The SASS variables in their partials(colors, fonts, images) each represent a legend. For ex, _color.sass is the color legend. So name your variables carefully. Ideally a designer should be able look at it at tweak colors automagically.
-&gt; Make sure you use the exact same css selector to override a baseline styling. For example, for
-&lt;div class=&quot;home&quot;&gt;
-&lt;a class=&quot;home-link&quot; href=&quot;#&quot;&gt;Home&lt;/a&gt;
-&lt;/div&gt;</p>
-
-<p>baseline.sass
+<ul>
+<li>All common images like buttons, icons etc should have a transparent background so that they can be themed with a background color.</li>
+<li>All images follow a standard size across multiple themes. This will prevent layouts from breaking.</li>
+<li>The SASS variables in their partials(colors, fonts, images) each represent a legend. For ex, _color.sass is the color legend. So name your variables carefully. Ideally a designer should be able look at it at tweak colors automagically.</li>
+<li>Make sure you use the exact same css selector to override a baseline styling. For example, for</li>
+</ul>
+<div class="highlight html"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">home</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">home-link</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Home<span class="tag">&lt;/a&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre></td>
+</tr></table>
+</div><div class="highlight sass"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>baseline.sass
 .home a
-color: red
-then override using</p>
-
-<p>client<em>a.sass
+  color: red</pre></td>
+</tr></table>
+</div>
+<p>then override using</p>
+<div class="highlight sass"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>client_a.sass
 .home a
-color: black
-and not
-client</em>a.sass
+  color: black</pre></td>
+</tr></table>
+</div>
+<p>and not</p>
+<div class="highlight sass"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>client_a.sass
 .home-link
-color: black</p>
-
+  color: black</pre></td>
+</tr></table>
+</div>
 <p>And thats it. Hope it helps !</p>
 </div>
           </section>

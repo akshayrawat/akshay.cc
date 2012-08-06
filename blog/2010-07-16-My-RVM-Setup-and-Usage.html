@@ -15,7 +15,7 @@
     <link href="/css/application.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" media="screen" rel="stylesheet" type="text/css" />
   </head>
-  <body class='blog'>
+  <body class='blogs'>
     <!--[if lt IE 7]> <p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p> <![endif]-->
     <div id='top-bg'></div>
     <div class='container-fluid' id='page'>
@@ -28,7 +28,7 @@
             </h1>
             <nav id='main-nav'>
               <ul>
-                <li class='inactive'>
+                <li class='active'>
                   <a href="/">Blog</a>
                 </li>
                 <li class='inactive'>
@@ -78,33 +78,52 @@
   </h2>
 </div>
 <div class='blog-body'>
-  <p>RVM has proved mighty useful in the short time I&#39;ve used it. My projects usually don&#39;t care too much about multiple versions of Ruby, they all primarily use ree-1.8.7, but I have a ton of bed time hacks which use all kinds of Rubies. Here is how I&#39;ve found RVM useful.</p>
+  <p><a href="https://rvm.io/">RVM</a> has proved mighty useful in the short time I&#39;ve used it. My projects usually don&#39;t care too much about multiple versions of Ruby, they all primarily use ree-1.8.7, but I have a ton of bed time hacks which use all kinds of Rubies. Here is how I&#39;ve found RVM useful.</p>
 
-<p>RVM definitely helps out here by separating gem installations across multiple versions of Ruby. RVM Gemsets turned out to be the most useful feature though, specially while upgrading application through major versions of Rails. The CI Box also uses RVM for running builds for projects with different dependencies. Here, RVM also helps to isolate the gems dependencies of the CI app (like cruisecontrol.rb) from the application it is building by using project .rvmrc.
-In fact RVM and Bundler work quite well together. In the absence of RVM, Bundler would install gems in the ~/bundle folder. With RVM, bundler installs all gems in ~/.rvm/gems/ree-1.8.7-2010.02/gems - which is a RVM managed folder structure, which is ruby version/ RVM gemset aware.
-When using RVM, here are some guidelines I like follow to.</p>
+<p>RVM definitely helps out here by separating gem installations across multiple versions of Ruby. <a href="https://rvm.io//gemsets/basics/">RVM Gemsets</a> turned out to be the most useful feature though, specially while upgrading application through major versions of Rails. The CI Box also uses RVM for running builds for projects with different dependencies. Here, RVM also helps to isolate the gems dependencies of the CI app (like cruisecontrol.rb) from the application it is building by using <a href="https://rvm.io//workflow/projects/">project .rvmrc</a>.</p>
 
-<p>No global system gems</p>
+<p>In fact RVM and <a href="http://gembundler.com/">Bundler</a> work quite well together. In the absence of RVM, Bundler would install gems in the <code>~/bundle</code> folder. With RVM, bundler installs all gems in <code>~/.rvm/gems/ree-1.8.7-2010.02/gems</code> - which is a RVM managed folder structure, which is ruby version/ RVM gemset aware.</p>
 
-<p>The RVM manual discourages the use of gem installations via sudo. In fact, like most people if you are coming to RVM with a preinstalled set of system gems, you can remove them by 
-rvm use system
-rvm gemset empty
-This ensures that the system has no global gems and the gems managed RVM are the only dependencies. This is specially helpful in removing those old gems which had binaries in global binary paths like &#39;/usr/bin&#39;</p>
+<h4>Guidelines I like to follow</h4>
 
-<p>Each project has its own project .rvmrc which is checked in.</p>
+<p><strong>No global system gems</strong></p>
 
-<p>This is convenient as RVM will automatically switch gemsets based on this. On new projects, right before you run bundle install, run this from the project root 
-rvm --create --rvmrc ruby@project_name
-This creates a gemset and a .rvmrc for the project</p>
+<p>The RVM manual discourages the use of gem installations via sudo. In fact, like most people if you are coming to RVM with a preinstalled set of system gems, you can remove them by </p>
+<div class="highlight bash"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>rvm use system
+rvm gemset empty</pre></td>
+</tr></table>
+</div>
+<p>This ensures that the system has no global gems and the gems managed RVM are the only dependencies. This is specially helpful in removing those old gems which had binaries in global binary paths like <code>/usr/bin</code></p>
 
-<p>Avoid installing gems in the ruby@global gemset</p>
+<p><strong>Each project has its own project .rvmrc which is checked in</strong></p>
 
-<p>These is the global gemset where gems are installed for a ruby when no particular gemset is specified. The problem with this is in how RVM initializes the PATH and GEM<em>PATH while loading a gemset
-PATH=&quot;~/.rvm/gems/ree-1.8.7-2010.02@project/bin:~/.rvm/gems/ree-1.8.7-2010.02@global/bin:~/.rvm/rubies/ree-1.8.7-2010.02/bin:~/.rvm/bin:$PATH&quot;
-GEM</em>HOME=&quot;~/.rvm/gems/ree-1.8.7-2010.02@project&quot;
-GEM_PATH=&quot;~/.rvm/gems/ree-1.8.7-2010.02@project:~/.rvm/gems/ree-1.8.7-2010.02@global&quot;</p>
+<p>This is convenient as RVM will automatically switch gemsets based on this. On new projects, right before you run bundle install, run this from the project root </p>
+<div class="highlight bash"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>rvm --create --rvmrc ruby@project_name</pre></td>
+</tr></table>
+</div>
+<p>This creates a <code>gemset</code> and a <code>.rvmrc</code> for the project</p>
 
-<p>This means that RVM will also look for gem binaries in the global gemset. Now this would be a problem if developer environments have different global gemsets. This is nasty, since the whole point of create a new gemset was to isolate the project from such differences. So its best to keep the @global gemset as minimal as possible. Now, sharing of gems across projects or space is not really an issue here since RVM internally keeps only one copy of a gem even if its used in multiple gemsets. I have a @spikes gemset and I set my user .rvmrc to rvm use ruby@spikes so that it is the default gemset.
+<p><strong>Avoid installing gems in the <code>ruby@global gemset</code></strong></p>
+
+<p>These is the global gemset where gems are installed for a ruby when no particular gemset is specified. The problem with this is in how RVM initializes the PATH and GEM_PATH while loading a gemset</p>
+<div class="highlight bash"><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>PATH=&quot;~/.rvm/gems/ree-1.8.7-2010.02@project/bin:~/.rvm/gems/ree-1.8.7-2010.02@global/bin:~/.rvm/rubies/ree-1.8.7-2010.02/bin:~/.rvm/bin:$PATH&quot;
+GEM_HOME=&quot;~/.rvm/gems/ree-1.8.7-2010.02@project&quot;
+GEM_PATH=&quot;~/.rvm/gems/ree-1.8.7-2010.02@project:~/.rvm/gems/ree-1.8.7-2010.02@global&quot;</pre></td>
+</tr></table>
+</div>
+<p>This means that RVM will also look for gem binaries in the global gemset. Now this would be a problem if developer environments have different global gemsets. This is nasty, since the whole point of create a new gemset was to isolate the project from such differences. So its best to keep the <code>global</code> gemset as minimal as possible. Now, sharing of gems across projects or space is not really an issue here since RVM internally keeps only one copy of a gem even if its used in multiple gemsets. I have a @spikes gemset and I set my user .rvmrc to rvm use <code>ruby@spikes</code> so that it is the default gemset.
 Hope this helps !</p>
 </div>
           </section>
