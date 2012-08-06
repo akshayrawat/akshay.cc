@@ -78,27 +78,35 @@
               </h2>
             </div>
             <div class='blog-body'>
-              <p>The question
-              Stripe + Open Source Currency Rate Exchange API = Accept Payments in INR without a merchant account, if you have a US bank account and are fine with coming in USD. How well does it work ?</p>
+              <p><strong>The question</strong>
+              <a href="https://stripe.com/">Stripe</a> + <a href="http://josscrowcroft.github.com/open-exchange-rates/">Open Source Currency Rate Exchange API</a> = Accept Payments in INR without a merchant account, if you have a US bank account and are fine with coming in USD. How well does it work ?</p>
               
-              <p>The answer
-              A work in progress, so don&#39;t make any decisions based on this work.</p>
+              <p><strong>The answer</strong></p>
               
-              <p>Notes
-              Stripe is a good starting point for small ideas which want to accept payments overnight, and deal with the formalities later.</p>
+              <p>A work in progress, so don&#39;t make any decisions based on this work.</p>
               
-              <p>Technically, its quite simple. I wrote up a simple rails app to demo this here. It accepts an amount in INR, converts it to USD  and posts it to a production Stripe environment(my bank account). The amount on customer&#39;s the bank statement is extremely close to the equivalent USD amount posted, i.e. if an item is for INR 1000, the customer might see a amount like INR 1001, due to currency conversion rounding. The Stripe fee is 2.9%+ 30 cent. I think this is a non issue for early stage ideas.</p>
+              <p><strong>Notes</strong></p>
+              
+              <p>Stripe is a good starting point for small ideas which want to accept payments overnight, and deal with the formalities later.</p>
+              
+              <p>Technically, its quite simple. I wrote up a simple rails app to demo this <a href="https://github.com/akshayrawat/stripe-inr">here</a>. It accepts an amount in INR, converts it to USD  and posts it to a production Stripe environment(my bank account). The amount on customer&#39;s the bank statement is extremely close to the equivalent USD amount posted, i.e. if an item is for INR 1000, the customer might see a amount like INR 1001, due to currency conversion rounding. The Stripe fee is 2.9%+ 30 cent. I think this is a non issue for early stage ideas.</p>
               
               <p>However, all debit, credit cards may not work, and I want the explore the reasons behind that. Stripe is actually a credit card processor, but my vanilla ICICI debit card worked perfectly. In the coming days, I&#39;ll make a list of all the cards I&#39;ve tested, while refining certain things which could increase the success rate. If you want to try out a card, get in touch with me and we&#39;ll test it out.</p>
               
               <p>Cash on Delivery is a nice and easy fallback option which is offered by courier companies like BlueDart and Aramex.</p>
               
-              <p>Working:
-              ICICI Visa Debit card
-              ICICI MasterCard Credit card
-              Not working</p>
+              <p><strong>Working</strong></p>
               
-              <p>HDFC Visa Debit card</p>
+              <ul>
+              <li>ICICI Visa Debit card</li>
+              <li>ICICI MasterCard Credit card</li>
+              </ul>
+              
+              <p><strong>Not working</strong></p>
+              
+              <ul>
+              <li>HDFC Visa Debit card</li>
+              </ul>
             </div>
           </section>
         </div>
