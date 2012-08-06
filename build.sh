@@ -12,3 +12,4 @@ git commit -m "Update site"
 rm -rf /tmp/build
 
 git push
+git checkout master
