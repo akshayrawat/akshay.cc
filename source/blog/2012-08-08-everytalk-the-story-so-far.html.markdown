@@ -18,7 +18,7 @@ Here is how I _plan_ to address these problems:
 #### Discovery:
 
 * Follow speakers. This is the biggest way I discover new content. When a speaker who you follow has a new video, it gets added to your playlist.
-* Topic focussed channels. Say, a channel for MongoDB, a channel for HTML5 games. My inspiration for this is Mac Store type collections - like Apps for Colleges, Games starter kit. Its hard to categorize all talks, but easy to build a collection of a few selected talks are in your area of interest. New content in a channel gets added to your playlist.
+* Topic focussed channels. Say, a channel for MongoDB, a channel for HTML5 games. My inspiration for this is Mac App Store type collections - like Apps for Colleges, Games starter kit. Its hard to categorize all talks, but easy to build a collection of a few selected talks that are in your area of interest. New content in a channel gets added to your playlist.
 * Rank and feature talks based the number of playlists they are in. Popularity, sort of.
 * View other people's playlists.
 
