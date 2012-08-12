@@ -18,4 +18,4 @@ experiments:
     url: "/dj_mon/"
     image_url: "/img/experiments/dj_mon.jpeg"
     description:
-      <a href='/dj_mon/'>DJ Mon</a> is a Rails engine based frontend (web and iPhone) from Delayed Jobs.
+      <a href='/dj_mon/'>DJ Mon</a> is a Rails engine based frontend (web and iPhone) for Delayed Jobs.
