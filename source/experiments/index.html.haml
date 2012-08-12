@@ -7,6 +7,6 @@
         = experiment['name']
       .image
         = link_to experiment['url'], target: '_blank' do
-          %img{ alt: experiment['name'], src: experiment['image_url']}/
+          %img{ alt: experiment['name'], src: experiment['image_url'], height: '300', width: '600' }/
       .description
         = link_to experiment['description'], experiment['url'], target: '_blank'
