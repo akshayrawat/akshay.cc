@@ -10,3 +10,11 @@
           %img{ alt: experiment['name'], src: experiment['image_url'], height: '300', width: '600' }/
       .description
         = link_to experiment['description'], experiment['url'], target: '_blank'
+
+  %li.page-title
+    %h2
+      = data.experiments.dj_mon.name
+    .embed
+      = data.experiments.dj_mon.embed_html
+    .description
+      = data.experiments.dj_mon.description

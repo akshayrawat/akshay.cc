@@ -13,9 +13,10 @@ experiments:
     description:
       <a href='http://myminister.info' target='_blank'>MyMinister</a> is an open database of information on Indian Members of Parliaments. Accessible via a REST API.
 
-   -
-    name: DJ Mon
-    url: "/dj_mon/"
-    image_url: "/img/experiments/dj_mon.jpeg"
-    description:
-      <a href='/dj_mon/'>DJ Mon</a> is a Rails engine based frontend (web and iPhone) for Delayed Jobs.
+dj_mon:
+  name: DJ Mon
+  embed_html:
+      <iframe src="http://player.vimeo.com/video/47391275?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="251" height="376" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+      <iframe src="http://player.vimeo.com/video/47392167?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="600" height="376" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+  description:
+      <p>DJ Mon is a Rails engine based frontend for Delayed Job. It supports the <a href="https://github.com/collectiveidea/delayed_job_active_record">ActiveRecord</a> and <a href="https://github.com/collectiveidea/delayed_job_mongoid">Mongoid</a> Delayed Job backends. It also has an iPhone client. Installation and usage instructions are on the <a href="https://github.com/akshayrawat/dj_mon">Github wiki</a>. Feel free to <a href="https://github.com/akshayrawat/dj_mon/issues?state=open">report bugs</a> or <a href="https://github.com/akshayrawat/dj_mon">send pull requests</a>.</p>
