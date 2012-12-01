@@ -19,7 +19,7 @@ I found that most good designers participate only in [blind contests](http://99d
 
 I've seen a lot of contest holders struggle with providing feedback in Round 1. This is a hard job as contests get hundreds of submissions. So its really important to publish the rules of feedback in the beginning. My rules for feedback for Round 1 are always posted publicly - If I like your design concept, I'll provide you feedback 2 or 3 times. If your design gets eliminated without any feedback, then please try a new design concept. Most times when I eliminated, I would drop a quick line, and an encouragement to try another concept.
 
-Setting these ground rules straight prevented designers from personal messaging me all time.
+Setting these ground rules straight prevented designers from personal messaging me all the time.
 
 #### Set goals for each round
 
