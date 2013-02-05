@@ -16,6 +16,7 @@ These are the things I found really useful for getting started with Ember last w
   * [Ember data architecture](https://github.com/emberjs/data/blob/master/ARCHITECTURE.md) and [breaking changes](https://github.com/emberjs/data/blob/master/BREAKING_CHANGES.md).
   * [Understanding Ember Objects](http://www.cerebris.com/blog/2012/03/06/understanding-ember-object/)
   * [HandlebarJS Guides](http://handlebarsjs.com/)
+  * [Useful Ember functions](http://code418.com/blog/2012/03/08/useful-emberjs-functions/)
   * [DockYard's Blog](http://reefpoints.dockyard.com/ember/2013/01/07/building-an-ember-app-with-rails-api-part-1.html)
   * [Kasper Tidemann's Blog](http://www.kaspertidemann.com/)
   * [Jakub Arnold's Blog](http://darthdeus.github.com/)
