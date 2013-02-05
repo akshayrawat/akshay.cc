@@ -43,3 +43,6 @@ These are the things I found really useful for getting started with Ember last w
   * [ember-railsapi](https://github.com/bcardarella/ember-railsapi)
   * [Github code search](https://github.com/search?l=javascript&q=Ember.Route.extend&ref=commandbar&type=Code)
   * [Yehuda's Gist feed](https://gist.github.com/wycats)
+  
+#### Got a question:
+  * [Start with this JSBin](http://jsbin.com/adedag/26/edit)
