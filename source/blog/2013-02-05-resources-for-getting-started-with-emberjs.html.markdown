@@ -27,6 +27,7 @@ These are the things I found really useful for getting started with Ember last w
   * #emberjs on irc.freenode.net
   * [irc history](http://emberjs.iriscouch.com/irc/_design/viewer/index.html)
   * [Commit Logs](https://github.com/emberjs/ember.js/commits/master)
+  * [This Week in EmberJS](http://emberjs.com/blog/)
 
 #### Seattle Ember.js sessions
   * [Part 1](http://www.youtube.com/watch?v=_6yMxU-_ARs) 
