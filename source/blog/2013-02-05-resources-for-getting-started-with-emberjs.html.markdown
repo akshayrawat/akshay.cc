@@ -37,6 +37,7 @@ These are the things I found really useful for getting started with Ember last w
   * [Part 4](http://www.youtube.com/watch?v=aBvOXnTG5Ag)
 
 #### Code:
+  * [Discourse](https://github.com/discourse/discourse)
   * [Ember data tests](https://github.com/emberjs/data/tree/master/packages/ember-data/tests)
   * [modal crud](http://jsbin.com/ixigez/2/edit)
   * [ember_data-crud_example](https://github.com/GerritWanderer/ember_data-crud_example)
