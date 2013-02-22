@@ -1,0 +1,254 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]> ><! <![endif]-->
+<html class='no-js' lang='en'>
+  <!-- <![endif] -->
+  <head>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='Home of Akshay Rawat' name='description' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <meta description='Works of Akshay Rawat' />
+    <link href='/apple-touch-icon.png' rel='apple-touch-icon' />
+    <link href='/favicon.ico' rel='shortcut icon' />
+    <title>
+      Debugging Ember.js and Ember Data
+    </title>
+    <link href='humans.txt' rel='author' />
+    <link href="/css/application.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" media="screen" rel="stylesheet" type="text/css" />
+    <script type='text/javascript'>
+      //<![CDATA[
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-33977928-1']);
+        _gaq.push(['_trackPageview']);
+        
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      //]]>
+    </script>
+  </head>
+  <body class='blogs'>
+    <!--[if lt IE 7]> <p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p> <![endif]-->
+    <div id='top-bg'></div>
+    <div class='container-fluid' id='page'>
+      <div class='row-fluid'>
+        <div class='span3'>
+          <aside id='sidebar'>
+            <h1 id='logo'>
+                <a href="/"><i class='icon-external-link'></i>
+              </a>
+            
+            </h1>
+            <nav id='main-nav'>
+              <ul>
+                <li class='active'>
+                  <a href="/">Blog</a>
+                </li>
+                <li class='inactive'>
+                  <a href="/projects/">Projects</a>
+                </li>
+                <li class='inactive'>
+                  <a href="/experiments/">Experiments</a>
+                </li>
+              </ul>
+            </nav>
+            <div id='social'>
+              <ul>
+                <li>
+                        <a href="http://www.twitter.com/akshayrawat"><i class='icon-twitter'></i>
+                  </a>
+            
+                </li>
+                <li>
+                        <a href="http://www.github.com/akshayrawat"><i class='icon-github'></i>
+                  </a>
+            
+                </li>
+                <li>
+                        <a href="http://in.linkedin.com/pub/akshay-rawat/11/93/807"><i class='icon-linkedin'></i>
+                  </a>
+            
+                </li>
+                <li>
+                        <a href="mailto:projects@akshay.cc?subject=Hi%20There!"><i class='icon-envelope'></i>
+                  </a>
+            
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+        <div class='span9'>
+          <section id='main'>
+            <div class='page-title'>
+  <h2>
+    <div class='pull-left'>
+      Debugging Ember.js and Ember Data
+    </div>
+    <div class='pull-right'>
+      Feb 22 2013
+    </div>
+  </h2>
+</div>
+<div class='blog-body'>
+  <h4>Debugging EmberJS and Ember Data:</h4>
+
+<p>Useful tips on debugging problems. They are current as of Ember.js 1.0.0.rc1.</p>
+
+<ul>
+<li><p>Log router transitions:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>window.App = Ember.Application.create({
+  LOG_TRANSITIONS: true,
+});</pre></td>
+</tr></table>
+</div></li>
+<li><p>Log object bindings:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>Ember.LOG_BINDINGS = true</pre></td>
+</tr></table>
+</div></li>
+<li><p>View all registered routes:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>Ember.keys(App.Router.router.recognizer.names)</pre></td>
+</tr></table>
+</div></li>
+<li><p>View all registered templates:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>Ember.keys(Ember.TEMPLATES)</pre></td>
+</tr></table>
+</div></li>
+<li><p>Get the state history of an ember-data record:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>record.stateManager.get('currentPath')</pre></td>
+</tr></table>
+</div></li>
+<li><p>Get the View object for a generated ember <code>div</code> by its div id.</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>Ember.View.views['ember605']</pre></td>
+</tr></table>
+</div></li>
+<li><p>Log state transitions:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>record.set(&quot;stateManager.enableLogging&quot;, true)</pre></td>
+</tr></table>
+</div></li>
+<li><p>View an instance of something from the container:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>App.__container__.lookup(&quot;controller:posts&quot;)
+App.__container__.lookup(&quot;route:application&quot;)</pre></td>
+</tr></table>
+</div></li>
+<li><p>View ember-data&#39;s identity map:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>App.__container__.lookup('store:main').recordCache # all records in memory
+App.__container__.lookup('store:main').recordCache[2].get('data.attributes') #attributes
+App.__container__.lookup('store:main').recordCache[2].get('comments') #loaded associations</pre></td>
+</tr></table>
+</div></li>
+<li><p>See all observers for a object, key:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>Ember.observersFor(comments, keyName);</pre></td>
+</tr></table>
+</div></li>
+<li><p>Dealing with deprecations:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>Ember.ENV.RAISE_ON_DEPRECATION = true
+Ember.LOG_STACKTRACE_ON_DEPRECATION = true</pre></td>
+</tr></table>
+</div></li>
+<li><p>Handlebars:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>{{debugger}}
+{{log record}}</pre></td>
+</tr></table>
+</div></li>
+<li><p>Implement a <code>Ember.onerror</code> hook to log all errors in production:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+4
+5
+6
+</pre></td>
+  <td class="code"><pre> Ember.onerror = function(error) {
+   Em.$.ajax('/error-notification', 'POST', {
+     stack: error.stack,
+     otherInformation: 'exception message'
+   });
+ };</pre></td>
+</tr></table>
+</div></li>
+<li><p>Use ember extension when its ready:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>https://github.com/tildeio/ember-extension.git</pre></td>
+</tr></table>
+</div></li>
+</ul>
+</div>
+<div class='comments'>
+  <div id='disqus_thread'></div>
+  <script type='text/javascript'>
+    //<![CDATA[
+      var disqus_shortname = 'akshaycc';
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    //]]>
+  </script>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+          </section>
+        </div>
+      </div>
+      <div id='page-footer'></div>
+    </div>
+    <footer>
+      Made with Middleman &bull; Hosted on Github
+    </footer>
+  </body>
+</html>
+
