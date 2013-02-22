@@ -99,93 +99,132 @@
 <div class='blog-body'>
   <h4>Debugging EmberJS and Ember Data:</h4>
 
-<p>Useful tips on debugging problems. They are current as of Ember.js 1.0.0.rc1.</p>
+<p>Things I found useful while debugging problems. They are current as of Ember.js 1.0.0.rc1.</p>
 
 <ul>
-<li>Log router transitions:</li>
-</ul>
-<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
+<li><p>Log router transitions:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>window.App = Ember.Application.create({
+  LOG_TRANSITIONS: true,
+});</pre></td>
+</tr></table>
+</div></li>
+<li><p>Log object bindings:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>Ember.LOG_BINDINGS = true</pre></td>
+</tr></table>
+</div></li>
+<li><p>View all registered routes:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>Ember.keys(App.Router.router.recognizer.names)</pre></td>
+</tr></table>
+</div></li>
+<li><p>View all registered templates:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>Ember.keys(Ember.TEMPLATES)</pre></td>
+</tr></table>
+</div></li>
+<li><p>Get the state history of an ember-data record:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>record.stateManager.get('currentPath')</pre></td>
+</tr></table>
+</div></li>
+<li><p>Get the View object for a generated ember <code>div</code> by its div id.</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>Ember.View.views['ember605']</pre></td>
+</tr></table>
+</div></li>
+<li><p>Log state transitions:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>record.set(&quot;stateManager.enableLogging&quot;, true)</pre></td>
+</tr></table>
+</div></li>
+<li><p>View an instance of something from the container:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>App.__container__.lookup(&quot;controller:posts&quot;)
+App.__container__.lookup(&quot;route:application&quot;)</pre></td>
+</tr></table>
+</div></li>
+<li><p>View ember-data&#39;s identity map:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>App.__container__.lookup('store:main').recordCache # all records in memory
+App.__container__.lookup('store:main').recordCache[2].get('data.attributes') #attributes
+App.__container__.lookup('store:main').recordCache[2].get('comments') #loaded associations</pre></td>
+</tr></table>
+</div></li>
+<li><p>See all observers for a object, key:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>Ember.observersFor(comments, keyName);</pre></td>
+</tr></table>
+</div></li>
+<li><p>Dealing with deprecations:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>Ember.ENV.RAISE_ON_DEPRECATION = true
+Ember.LOG_STACKTRACE_ON_DEPRECATION = true</pre></td>
+</tr></table>
+</div></li>
+<li><p>Handlebars:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>{{debugger}}
+{{log record}}</pre></td>
+</tr></table>
+</div></li>
+<li><p>Implement a <code>Ember.onerror</code> hook to log all errors in production:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
 2
 3
 4
 5
 6
-7
-8
-9
-<strong>10</strong>
-11
-12
-13
-14
-15
-16
-17
-18
-19
-<strong>20</strong>
-21
-22
-23
-24
-25
-26
-27
-28
-29
-<strong>30</strong>
-31
-32
-33
-34
-35
-36
-37
-38
-39
 </pre></td>
-  <td class="code"><pre>        window.App = Ember.Application.create({
-          <span class="key">LOG_TRANSITIONS</span>: <span class="predefined-constant">true</span>,
-        });
-* Log object bindings:
-        Ember.LOG_BINDINGS = <span class="predefined-constant">true</span>
-* View all registered routes:
-        Ember.keys(App.Router.router.recognizer.names)
-* View all registered templates:
-        Ember.keys(Ember.TEMPLATES)
-* Get the state history of an ember-data record:
-        record.stateManager.get(<span class="string"><span class="delimiter">'</span><span class="content">currentPath</span><span class="delimiter">'</span></span>)
-* Get the View object <span class="keyword">for</span> a generated ember <span class="error">`</span>div<span class="error">`</span> by its div id.
-        Ember.View.views[<span class="string"><span class="delimiter">'</span><span class="content">ember605</span><span class="delimiter">'</span></span>]
-* Log state transitions:
-        record.set(<span class="string"><span class="delimiter">&quot;</span><span class="content">stateManager.enableLogging</span><span class="delimiter">&quot;</span></span>, <span class="predefined-constant">true</span>)        
-* View an instance of something from the container:
-        App.__container__.lookup(<span class="string"><span class="delimiter">&quot;</span><span class="content">controller:posts</span><span class="delimiter">&quot;</span></span>)
-        App.__container__.lookup(<span class="string"><span class="delimiter">&quot;</span><span class="content">route:application</span><span class="delimiter">&quot;</span></span>)
-* View ember-data<span class="string"><span class="delimiter">'</span><span class="content">s identity map:
-        App.__container__.lookup(</span><span class="delimiter">'</span></span>store:main<span class="string"><span class="delimiter">'</span><span class="content">).recordCache # all records in memory
-        App.__container__.lookup(</span><span class="delimiter">'</span></span>store:main<span class="string"><span class="delimiter">'</span><span class="content">).recordCache[2].get(</span><span class="delimiter">'</span></span>data.attributes<span class="string"><span class="delimiter">'</span><span class="content">) #attributes
-        App.__container__.lookup(</span><span class="delimiter">'</span></span>store:main<span class="string"><span class="delimiter">'</span><span class="content">).recordCache[2].get(</span><span class="delimiter">'</span></span>comments<span class="string"><span class="delimiter">'</span><span class="content">) #loaded associations
-* See all observers for a object, key:
-        Ember.observersFor(comments, keyName);
-* Dealing with deprecations:
-        Ember.ENV.RAISE_ON_DEPRECATION = true
-        Ember.LOG_STACKTRACE_ON_DEPRECATION = true
-* Handlebars:
-        {{debugger}}
-        {{log record}}
-* Implement a `Ember.onerror` hook to log all errors in production:
-         Ember.onerror = function(error) {
-           Em.$.ajax(</span><span class="delimiter">'</span></span>/error-notification<span class="string"><span class="delimiter">'</span><span class="content">, </span><span class="delimiter">'</span></span>POST<span class="string"><span class="delimiter">'</span><span class="content">, {
-             stack: error.stack,
-             otherInformation: </span><span class="delimiter">'</span></span>exception message<span class="string"><span class="delimiter">'</span><span class="content">
-           });
-         };
-* Use ember extension when its ready:
-        https://github.com/tildeio/ember-extension.git</span></span></pre></td>
+  <td class="code"><pre> Ember.onerror = function(error) {
+   Em.$.ajax('/error-notification', 'POST', {
+     stack: error.stack,
+     otherInformation: 'exception message'
+   });
+ };</pre></td>
 </tr></table>
-</div>
+</div></li>
+<li><p>Use ember extension when its ready:</p>
+<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+  <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
+</pre></td>
+  <td class="code"><pre>https://github.com/tildeio/ember-extension.git</pre></td>
+</tr></table>
+</div></li>
+</ul>
 </div>
 <div class='comments'>
   <div id='disqus_thread'></div>
