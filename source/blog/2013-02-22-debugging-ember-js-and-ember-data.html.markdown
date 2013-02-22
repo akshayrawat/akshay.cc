@@ -6,11 +6,10 @@ tags:
 
 ####Debugging EmberJS and Ember Data:
 
-Useful tips on debugging problems. They are current as of Ember.js 1.0.0.rc1.
+Things I found useful while debugging problems. They are current as of Ember.js 1.0.0.rc1.
 
 * Log router transitions:
 
-```javascript
         window.App = Ember.Application.create({
           LOG_TRANSITIONS: true,
         });
