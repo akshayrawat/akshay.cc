@@ -102,106 +102,131 @@
 <p>Things I found useful while debugging problems. They are current as of Ember.js 1.0.0.rc1.</p>
 
 <ul>
-<li><p>Log router transitions:</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+<li>Log router transitions:</li>
+</ul>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
 2
 3
 </pre></td>
-  <td class="code"><pre>window.App = Ember.Application.create({
-  LOG_TRANSITIONS: true,
-});</pre></td>
+  <td class="code"><pre>  window.App = Ember.Application.create({
+    <span class="key">LOG_TRANSITIONS</span>: <span class="predefined-constant">true</span>,
+  });</pre></td>
 </tr></table>
-</div></li>
-<li><p>Log object bindings:</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+</div>
+<ul>
+<li>Log object bindings:</li>
+</ul>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
 </pre></td>
-  <td class="code"><pre>Ember.LOG_BINDINGS = true</pre></td>
+  <td class="code"><pre>  Ember.LOG_BINDINGS = <span class="predefined-constant">true</span></pre></td>
 </tr></table>
-</div></li>
-<li><p>View all registered routes:</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+</div>
+<ul>
+<li>View all registered routes:</li>
+</ul>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
 </pre></td>
-  <td class="code"><pre>Ember.keys(App.Router.router.recognizer.names)</pre></td>
+  <td class="code"><pre>  Ember.keys(App.Router.router.recognizer.names)</pre></td>
 </tr></table>
-</div></li>
-<li><p>View all registered templates:</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+</div>
+<ul>
+<li>View all registered templates:</li>
+</ul>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
 </pre></td>
-  <td class="code"><pre>Ember.keys(Ember.TEMPLATES)</pre></td>
+  <td class="code"><pre>  Ember.keys(Ember.TEMPLATES)</pre></td>
 </tr></table>
-</div></li>
-<li><p>Get the state history of an ember-data record:</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+</div>
+<ul>
+<li>Get the state history of an ember-data record:</li>
+</ul>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
 </pre></td>
-  <td class="code"><pre>record.stateManager.get('currentPath')</pre></td>
+  <td class="code"><pre>  record.stateManager.get(<span class="string"><span class="delimiter">'</span><span class="content">currentPath</span><span class="delimiter">'</span></span>)</pre></td>
 </tr></table>
-</div></li>
-<li><p>Get the View object for a generated ember <code>div</code> by its div id.</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+</div>
+<ul>
+<li>Get the View object for a generated ember <code>div</code> by its div id.</li>
+</ul>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
 </pre></td>
-  <td class="code"><pre>Ember.View.views['ember605']</pre></td>
+  <td class="code"><pre>  Ember.View.views[<span class="string"><span class="delimiter">'</span><span class="content">ember605</span><span class="delimiter">'</span></span>]</pre></td>
 </tr></table>
-</div></li>
-<li><p>Log state transitions:</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+</div>
+<ul>
+<li>Log state transitions:</li>
+</ul>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
 </pre></td>
-  <td class="code"><pre>record.set(&quot;stateManager.enableLogging&quot;, true)</pre></td>
+  <td class="code"><pre>  record.set(<span class="string"><span class="delimiter">&quot;</span><span class="content">stateManager.enableLogging</span><span class="delimiter">&quot;</span></span>, <span class="predefined-constant">true</span>)</pre></td>
 </tr></table>
-</div></li>
-<li><p>View an instance of something from the container:</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+</div>
+<ul>
+<li>View an instance of something from the container:</li>
+</ul>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
 2
 </pre></td>
-  <td class="code"><pre>App.__container__.lookup(&quot;controller:posts&quot;)
-App.__container__.lookup(&quot;route:application&quot;)</pre></td>
+  <td class="code"><pre>  App.__container__.lookup(<span class="string"><span class="delimiter">&quot;</span><span class="content">controller:posts</span><span class="delimiter">&quot;</span></span>)
+  App.__container__.lookup(<span class="string"><span class="delimiter">&quot;</span><span class="content">route:application</span><span class="delimiter">&quot;</span></span>)</pre></td>
 </tr></table>
-</div></li>
-<li><p>View ember-data&#39;s identity map:</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+</div>
+<ul>
+<li>View ember-data&#39;s identity map:</li>
+</ul>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
 2
 3
 </pre></td>
-  <td class="code"><pre>App.__container__.lookup('store:main').recordCache # all records in memory
-App.__container__.lookup('store:main').recordCache[2].get('data.attributes') #attributes
-App.__container__.lookup('store:main').recordCache[2].get('comments') #loaded associations</pre></td>
+  <td class="code"><pre>  App.__container__.lookup(<span class="string"><span class="delimiter">'</span><span class="content">store:main</span><span class="delimiter">'</span></span>).recordCache <span class="error">#</span> all records <span class="keyword">in</span> memory
+  App.__container__.lookup(<span class="string"><span class="delimiter">'</span><span class="content">store:main</span><span class="delimiter">'</span></span>).recordCache[<span class="integer">2</span>].get(<span class="string"><span class="delimiter">'</span><span class="content">data.attributes</span><span class="delimiter">'</span></span>) <span class="error">#</span>attributes
+  App.__container__.lookup(<span class="string"><span class="delimiter">'</span><span class="content">store:main</span><span class="delimiter">'</span></span>).recordCache[<span class="integer">2</span>].get(<span class="string"><span class="delimiter">'</span><span class="content">comments</span><span class="delimiter">'</span></span>) <span class="error">#</span>loaded associations</pre></td>
 </tr></table>
-</div></li>
-<li><p>See all observers for a object, key:</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+</div>
+<ul>
+<li>See all observers for a object, key:</li>
+</ul>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>
 </pre></td>
-  <td class="code"><pre>Ember.observersFor(comments, keyName);</pre></td>
+  <td class="code"><pre>  Ember.observersFor(comments, keyName);</pre></td>
 </tr></table>
-</div></li>
-<li><p>Dealing with deprecations:</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+</div>
+<ul>
+<li>Dealing with deprecations:</li>
+</ul>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
 2
 </pre></td>
-  <td class="code"><pre>Ember.ENV.RAISE_ON_DEPRECATION = true
-Ember.LOG_STACKTRACE_ON_DEPRECATION = true</pre></td>
+  <td class="code"><pre>Ember.ENV.RAISE_ON_DEPRECATION = <span class="predefined-constant">true</span>
+Ember.LOG_STACKTRACE_ON_DEPRECATION = <span class="predefined-constant">true</span></pre></td>
 </tr></table>
-</div></li>
-<li><p>Handlebars:</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+</div>
+<ul>
+<li>Handlebars:</li>
+</ul>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
 2
 </pre></td>
-  <td class="code"><pre>{{debugger}}
-{{log record}}</pre></td>
+  <td class="code"><pre>  {{<span class="reserved">debugger</span>}}
+  {{log record}}</pre></td>
 </tr></table>
-</div></li>
-<li><p>Implement a <code>Ember.onerror</code> hook to log all errors in production:</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+</div>
+<ul>
+<li>Implement a <code>Ember.onerror</code> hook to log all errors in production:</li>
+</ul>
+<div class="highlight javascript"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
 2
 3
@@ -209,14 +234,15 @@ Ember.LOG_STACKTRACE_ON_DEPRECATION = true</pre></td>
 5
 6
 </pre></td>
-  <td class="code"><pre> Ember.onerror = function(error) {
-   Em.$.ajax('/error-notification', 'POST', {
-     stack: error.stack,
-     otherInformation: 'exception message'
-   });
- };</pre></td>
+  <td class="code"><pre>  Ember.<span class="function">onerror</span> = <span class="keyword">function</span>(error) {
+    Em.<span class="predefined">$</span>.ajax(<span class="string"><span class="delimiter">'</span><span class="content">/error-notification</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">POST</span><span class="delimiter">'</span></span>, {
+      <span class="key">stack</span>: error.stack,
+      <span class="key">otherInformation</span>: <span class="string"><span class="delimiter">'</span><span class="content">exception message</span><span class="delimiter">'</span></span>
+    });
+  }</pre></td>
 </tr></table>
-</div></li>
+</div>
+<ul>
 <li><p>Use ember extension when its ready:</p>
 <div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>

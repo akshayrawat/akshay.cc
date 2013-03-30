@@ -106,7 +106,7 @@
 <p>Whereas a <code>lambda</code> <code>return</code> returns the control flow to its execution scope. This is just like a <code>return</code> from a method call. Control flow resumes to the line after the method call.</p>
 
 <p>Example:</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+<div class="highlight ruby"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
 2
 3
@@ -126,30 +126,30 @@
 17
 18
 </pre></td>
-  <td class="code"><pre>  describe &quot;control flow&quot; do
-    class ReturnBehavior
-      def self.call_proc
-        proc { return &quot;return-a&quot; }.call
-        &quot;return-b&quot;
-      end
-      def self.call_lambda
-        lambda { return &quot;return-a&quot; }.call
-        &quot;return-b&quot;
-      end
-    end
-    it &quot;shows procs return from their lexical scope&quot; do
-      ReturnBehavior.call_proc.should == &quot;return-a&quot;
-    end
-    it &quot;shows lambdas return returns to their execution scope&quot; do
-      ReturnBehavior.call_lambda.should == &quot;return-b&quot;
-    end
-  end</pre></td>
+  <td class="code"><pre>describe <span class="string"><span class="delimiter">&quot;</span><span class="content">control flow</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+  <span class="keyword">class</span> <span class="class">ReturnBehavior</span>
+    <span class="keyword">def</span> <span class="predefined-constant">self</span>.<span class="function">call_proc</span>
+      proc { <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">return-a</span><span class="delimiter">&quot;</span></span> }.call
+      <span class="string"><span class="delimiter">&quot;</span><span class="content">return-b</span><span class="delimiter">&quot;</span></span>
+    <span class="keyword">end</span>
+    <span class="keyword">def</span> <span class="predefined-constant">self</span>.<span class="function">call_lambda</span>
+      lambda { <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">return-a</span><span class="delimiter">&quot;</span></span> }.call
+      <span class="string"><span class="delimiter">&quot;</span><span class="content">return-b</span><span class="delimiter">&quot;</span></span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+  it <span class="string"><span class="delimiter">&quot;</span><span class="content">shows procs return from their lexical scope</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+    <span class="constant">ReturnBehavior</span>.call_proc.should == <span class="string"><span class="delimiter">&quot;</span><span class="content">return-a</span><span class="delimiter">&quot;</span></span>
+  <span class="keyword">end</span>
+  it <span class="string"><span class="delimiter">&quot;</span><span class="content">shows lambdas return returns to their execution scope</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+    <span class="constant">ReturnBehavior</span>.call_lambda.should == <span class="string"><span class="delimiter">&quot;</span><span class="content">return-b</span><span class="delimiter">&quot;</span></span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
 </tr></table>
 </div>
 <p>A <code>LocalJumpError</code> occurs when the lexical scope of a <code>proc</code> has already returned, and then the <code>proc</code> calls <code>return</code>.</p>
 
 <p>For example below, the method <code>a_proc</code> builds and returns a <code>proc</code>. At the point the lexical scope has already returned, i.e. <code>a_proc</code> has already returned. Now when this returned <code>proc</code> is invoked via <code>call</code> (on line 11), it tries to return there is nothing to return out of, and hence the <code>LocalJumpError</code></p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+<div class="highlight ruby"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
 2
 3
@@ -167,28 +167,28 @@
 15
 16
 </pre></td>
-  <td class="code"><pre>  describe &quot;local jump errors &quot; do
-    class LocalJumpReturnBehavior
-      def self.a_proc
-        proc { return }
-      end
-      def self.a_lambda
-        lambda { return }
-      end
-    end
-    it &quot;shows procs raise LocalJumpError when the lexical scope has already returned&quot; do
-      lambda { LocalJumpReturnBehavior.a_proc.call }.should raise_error(LocalJumpError)
-    end
-    it &quot;shows lambdas do not raise LocalJumpError when the lexical scope has already returned&quot; do
-      lambda { LocalJumpReturnBehavior.a_lambda.call }.should_not raise_error(LocalJumpError)
-    end
-  end</pre></td>
+  <td class="code"><pre>describe <span class="string"><span class="delimiter">&quot;</span><span class="content">local jump errors </span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+  <span class="keyword">class</span> <span class="class">LocalJumpReturnBehavior</span>
+    <span class="keyword">def</span> <span class="predefined-constant">self</span>.<span class="function">a_proc</span>
+      proc { <span class="keyword">return</span> }
+    <span class="keyword">end</span>
+    <span class="keyword">def</span> <span class="predefined-constant">self</span>.<span class="function">a_lambda</span>
+      lambda { <span class="keyword">return</span> }
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+  it <span class="string"><span class="delimiter">&quot;</span><span class="content">shows procs raise LocalJumpError when the lexical scope has already returned</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+    lambda { <span class="constant">LocalJumpReturnBehavior</span>.a_proc.call }.should raise_error(<span class="constant">LocalJumpError</span>)
+  <span class="keyword">end</span>
+  it <span class="string"><span class="delimiter">&quot;</span><span class="content">shows lambdas do not raise LocalJumpError when the lexical scope has already returned</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+    lambda { <span class="constant">LocalJumpReturnBehavior</span>.a_lambda.call }.should_not raise_error(<span class="constant">LocalJumpError</span>)
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
 </tr></table>
 </div>
 <h4>Break</h4>
 
 <p>The key difference here is that a <code>proc</code> needs an enclosing block to <code>break</code> out of, where as a <code>lambda</code> does not.</p>
-<div class="highlight "><div class="ribbon"></div><table class="CodeRay"><tr>
+<div class="highlight ruby"><div class="ribbon"></div><table class="CodeRay"><tr>
   <td class="line-numbers" title="double click to toggle" ondblclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1
 2
 3
@@ -216,32 +216,32 @@
 25
 26
 </pre></td>
-  <td class="code"><pre>describe &quot;break&quot; do
-  describe &quot;local jump errors on break&quot; do
-    class LocalJumpBreakBehavior
-      def self.a_proc
-        proc { break }
-      end
-      def self.call_proc
-        proc { loop { break } }.call
-        &quot;return-b&quot;
-      end
-      def self.call_lambda
-        lambda { break }.call
-        &quot;return-b&quot;
-      end
-    end
-    it &quot;shows procs raise LocalJumpError when no enclosing block&quot; do
-      lambda { LocalJumpBreakBehavior.a_proc.call }.should raise_error(LocalJumpError)
-    end
-    it &quot;shows procs break if in an enclosing block&quot; do
-      LocalJumpBreakBehavior.call_proc.should == &quot;return-b&quot;
-    end
-    it &quot;shows lambdas break even if not in an enclosing block&quot; do
-      LocalJumpBreakBehavior.call_lambda.should == &quot;return-b&quot;
-    end
-  end
-end</pre></td>
+  <td class="code"><pre> describe <span class="string"><span class="delimiter">&quot;</span><span class="content">break</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+   describe <span class="string"><span class="delimiter">&quot;</span><span class="content">local jump errors on break</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+     <span class="keyword">class</span> <span class="class">LocalJumpBreakBehavior</span>
+       <span class="keyword">def</span> <span class="predefined-constant">self</span>.<span class="function">a_proc</span>
+         proc { <span class="keyword">break</span> }
+       <span class="keyword">end</span>
+       <span class="keyword">def</span> <span class="predefined-constant">self</span>.<span class="function">call_proc</span>
+         proc { loop { <span class="keyword">break</span> } }.call
+         <span class="string"><span class="delimiter">&quot;</span><span class="content">return-b</span><span class="delimiter">&quot;</span></span>
+       <span class="keyword">end</span>
+       <span class="keyword">def</span> <span class="predefined-constant">self</span>.<span class="function">call_lambda</span>
+         lambda { <span class="keyword">break</span> }.call
+         <span class="string"><span class="delimiter">&quot;</span><span class="content">return-b</span><span class="delimiter">&quot;</span></span>
+       <span class="keyword">end</span>
+     <span class="keyword">end</span>
+     it <span class="string"><span class="delimiter">&quot;</span><span class="content">shows procs raise LocalJumpError when no enclosing block</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+       lambda { <span class="constant">LocalJumpBreakBehavior</span>.a_proc.call }.should raise_error(<span class="constant">LocalJumpError</span>)
+     <span class="keyword">end</span>
+     it <span class="string"><span class="delimiter">&quot;</span><span class="content">shows procs break if in an enclosing block</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+       <span class="constant">LocalJumpBreakBehavior</span>.call_proc.should == <span class="string"><span class="delimiter">&quot;</span><span class="content">return-b</span><span class="delimiter">&quot;</span></span>
+     <span class="keyword">end</span>
+     it <span class="string"><span class="delimiter">&quot;</span><span class="content">shows lambdas break even if not in an enclosing block</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span>
+       <span class="constant">LocalJumpBreakBehavior</span>.call_lambda.should == <span class="string"><span class="delimiter">&quot;</span><span class="content">return-b</span><span class="delimiter">&quot;</span></span>
+     <span class="keyword">end</span>
+   <span class="keyword">end</span>
+ <span class="keyword">end</span></pre></td>
 </tr></table>
 </div>
 <h4>Reads</h4>
