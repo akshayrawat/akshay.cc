@@ -1,12 +1,5 @@
 experiments:
    -
-    name: Auctionful
-    url: "http://www.auctionful.com"
-    image_url: "/img/experiments/auctionful.jpeg"
-    description:
-      <a href='http://www.auctionful.com' target='_blank'>Auctionful</a> lets anyone with a web page build and run a complete auction store.
-
-   -
     name: EveryTalk
     url: "http://www.everytalk.tv"
     image_url: "/img/experiments/everytalk.jpeg"
@@ -19,6 +12,13 @@ experiments:
     image_url: "/img/experiments/myminister.jpeg"
     description:
       <a href='http://myminister.info' target='_blank'>MyMinister</a> is an open database of information on Indian Members of Parliaments. Accessible via a REST API.
+
+   -
+    name: Auctionful
+    url: "http://www.auctionful.com"
+    image_url: "/img/experiments/auctionful.jpeg"
+    description:
+      Auctionful lets anyone with a web page build and run a complete auction store. Now offline.
 
 dj_mon:
   name: DJ Mon
