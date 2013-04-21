@@ -39,9 +39,10 @@ All features/optimizations start out by making an assumption, and their lifetime
 5. Build a reporting model which translates the data collected to a form which answers the initial assumption.
 6. If the assumption meets the goal, you keep it, or else you drop the implementation and go back to step 2.
 
-Hence metrics act as a tight feedback loop to determine what works, what doesn't and with what efficiency. Every iteration cycle answers an assumption which provides quantifiable data on the direction to iterate, pivot. Hence your decisions are based on numbers and not on intuition, philosophy, or the competition.
+Hence metrics act as a tight feedback loop to determine what works, what doesn't and with what efficiency. Every iteration cycle answers an assumption which provides quantifiable data on the direction to iterate, pivot. Hence your decisions are based on numbers and not on intuition, philosophy, or the competition. Also, the idea is to fail fast, early and often and hence learn more from that. 
 
-Usually you want to have a funnel for every important workflow.
+Also, sometimes big, basic messaging is enough to gauge an interest in a feature, a lot of products don't do that enough.
+
 
 #### Metrics to measure churns
 
@@ -54,10 +55,10 @@ To reduce churn, its important to measure product engagement as users age in the
 
 Periodic NPS surverys are also useful. Recommend reading [this](http://www.surveymonkey.com/mp/net-promoter-score/) & [this](http://blog.surveymonkey.com/blog/2013/04/10/qualitative-vs-quantitative/).
 
+
 Usually you'll find pockets of users with extreme feedback, or other outliers in some sense. In those cases, follow quantitative measurements with qualitative ones - like a one on one conversation.  If you get one kind of feedback from a user, make sure to validate it across multiple groups of users. Or ask them if they would actually pay more for such a feature. Do not assume anything.
 
 In short: _Its not about how much and what you measure, but about how quickly you can learn from what you measure._
-
 
 #### References
 
